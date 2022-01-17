@@ -1,0 +1,44 @@
+!------------------------------------------------------------------------------
+!                  GEOS-Chem Global Chemical Transport Model                  !
+!------------------------------------------------------------------------------
+!BOP
+!
+! !MODULE: .Xresources
+!
+! !DESCRIPTION: Specifies defaults for Xterminal windows and X11 programs.
+!\\
+!\\
+! !REMARKS:
+!  This version of .Xdefaults is customized to the color scheme used
+!  by Bob Yantosca.  You can edit the settings as necessary.
+!                                                                             .
+!  Based on examples from:
+!    http://www2.its.strath.ac.uk/courses/x/subsection3_9_4.html
+!    http://infohost.nmt.edu/tcc/help/pubs/dotfiles/xdefaults.html
+!
+! !REVISION HISTORY:
+!  Check the revision history with the gitk browser!
+!EOP
+!------------------------------------------------------------------------------
+!BOC
+xterm*loginShell:      true
+xterm*background:      DarkSlateGray
+xterm*foreground:      LemonChiffon
+xterm*cursorColor:     FireBrick
+xterm*termType:        xterm
+xterm*geometry:        90x26+0+0
+xterm*saveLines:       10000
+xterm*scrollBar:       true
+xterm*titleBar:        true
+xterm*textUnderIcon:   true
+xterm*allowIconInput:  true
+xterm*autoRaise:       true
+!-------------------------------------------------------------------
+! Generic font, should work on any Linux installation
+!xterm/font:            10x20
+!-------------------------------------------------------------------
+! Specific fonts, check to see if these are installed locally
+!xterm*faceName:        DejaVu Sans Mono:size=12:embolden=true
+xterm*faceName:        Source Code Pro Medium:size=11:embolden=true
+!-------------------------------------------------------------------
+!EOC

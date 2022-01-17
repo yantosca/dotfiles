@@ -1,0 +1,60 @@
+config:
+  backup: true
+  create: true
+  dotpath: dotfiles
+dotfiles:
+  f_bash_profile:
+    src: bash_profile
+    dst: ~/.bash_profile
+  f_bashrc:
+    src: bashrc
+    dst: ~/.bashrc
+  f_bash_aliases:
+    src: bash_aliases
+    dst: ~/.bash_aliases
+  f_bash_logout:
+    src: bash_logout
+    dst: ~/.bash_logout
+  f_condarc:
+    src: condarc
+    dst: ~/.condarc
+  f_dir_colors:
+    src: dir_colors
+    dst: ~/.dir_colors
+  f_emacs_aliases:
+    src: emacs_aliases
+    dst: ~/.emacs_aliases
+  f_gitconfig:
+    src: gitconfig
+    dst: ~/.gitconfig
+  f_tmux.conf:
+    src: tmux.conf
+    dst: ~/.tmux.conf
+  f_xresources:
+    src: Xresources
+    dst: ~/.Xresources
+  f_init.el:
+    src: emacs.d/init.el
+    dst: ~/.emacs.d/init.el
+  f_emacs-config.org:
+    src: emacs.d/emacs-config.org
+    dst: ~/.emacs.d/emacs-config.org
+  f_emacs-config.el:
+    src: emacs.d/emacs-config.el
+    dst: ~/.emacs.d/emacs-config.el
+profiles:
+  hypnotoad:
+    dotfiles:
+    - f_bash_profile
+    - f_bashrc
+    - f_bash_aliases
+    - f_bash_logout
+    - f_condarc
+    - f_dir_colors
+    - f_emacs_aliases
+    - f_gitconfig
+    - f_tmux.conf
+    - f_xresources
+    - f_init.el
+    - f_emacs-config.org
+    - f_emacs-config.el

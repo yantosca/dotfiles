@@ -1,0 +1,96 @@
+#-----------------------------------------------------------------------------
+#                  GEOS-Chem Global Chemical Transport Model                 !
+#-----------------------------------------------------------------------------
+#BOP
+#
+# !MODULE: .bashrc
+#
+# !DESCRIPTION: Bash startup file. Starts the ssh-agent to forward private
+#  keys and loads the .bash_aliases file containing user customizations.
+#\\
+#\\
+# !CALLING SEQUENCE:
+#  source ~/.bashrc
+#EOP
+#-----------------------------------------------------------------------------
+#BOC
+
+#=============================================================================
+# Exit if we are not in an interactive shell.  This is necessary to avoid
+# problems on startup/login, as most of the .bashrc and .bash_alias settings
+# only apply to interactive (terminal) sessions.
+#=============================================================================
+[[ $- != *i* ]] && return
+
+#=============================================================================
+# Load important aliases and customizations
+#=============================================================================
+[[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
+
+# Load the X11 settings from .Xresources
+#xrdb ~/.Xresources
+
+##############################################################################
+#####  Add your local SSH private keys to the SSH agent and start it     #####
+#####  cf https://gist.github.com/Perigrinox/git bash ssh agent.md       #####
+##############################################################################
+
+# Define the path to SSH private keys that you would like to be forwarded
+# using ssh-agent.  For example, if you want to connect to the AWS cloud, 
+# then add the private key that is stored in your AWS account here.
+# Add as many private keys as you like.  Private keys should be stored
+# in the ~/.ssh folder.
+key_1=~/.ssh/bmy_aws_keypair.pem
+key_2=~/.ssh/id_rsa_20181218
+
+# Start the ssh-agent (if necessary)
+env=~/.ssh/agent.env
+
+agent_load_env () { test -f "$env" && . "$env" >| /dev/null ; }
+
+agent_start () {
+    (umask 077; ssh-agent >| "$env")
+    . "$env" >| /dev/null ; }
+
+agent_load_env
+
+# agent_run_state: 0=agent running w/ key; 1=agent w/o key; 2= agent not running
+agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
+
+# Add a new ssh-add command for all of the private keys
+# that you want to be forwarded with ssh-agent!
+if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
+
+    # Agent is not running, so start it
+    agent_start
+    ssh-add ${key_1}
+    ssh-add ${key_2}
+    
+elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
+
+    # Agent is running, so add keys
+    ssh-add ${key_1}
+    ssh-add ${key_2}
+
+fi
+
+# Free variables
+unset env
+unset key_1
+unset key_2
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/bob/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/bob/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/bob/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/bob/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+

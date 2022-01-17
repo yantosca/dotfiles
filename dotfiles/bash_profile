@@ -1,0 +1,35 @@
+#
+# .bash_profile: Only executes at login
+#
+# NOTE: Make sure .Xresources has xterm*loginShell: true.
+# which will cause xterm to always read .bash_profile first!
+#
+
+#============================================================================
+# Source the .bashrc file if it exists
+#============================================================================
+[[ -f ~/.bashrc ]] && . ~/.bashrc
+
+#============================================================================
+# Add folders containing executables to $PATH (edit as necessary)
+#
+# From https://unix.stackexchange.com/questions/40749/remove-duplicate-path-entries-with-awk-command
+#
+#   I am entering my preferred PATH order here because it gets set,
+#   appended, reset, appended again and ends up in such a jumbled order.
+#   The duplicates get removed, preserving my preferred order.
+#============================================================================
+
+# KPP home folder
+KPP_HOME="/work/KPP3"
+RUBY_BIN="~/.gem/ruby/2.7.0/bin"
+
+# Define PATH
+PATH=~/bin:$(command -p getconf PATH):/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin:${RUBY_BIN}:${PATH}:${KPP_HOME}/bin
+
+# Remove duplicates with awk (and prevent trailing ":" character)
+PATH=`printf %s "$PATH" | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}'`
+
+# Make PATH globally visible
+export PATH
+export KPP_HOME

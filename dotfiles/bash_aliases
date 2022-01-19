@@ -105,6 +105,9 @@ alias tmuxnew="tmux new -s "
 alias tmuxat="tmux a -t "
 alias tmuxde="tmux detach "
 
+# Slack aliases
+alias slack="slack 2>/dev/null 1>/dev/null"
+
 # Convert a windows file to Unix
 function dos2unix() {
   awk '{ sub("\r$", ""); print }' $1 > $2

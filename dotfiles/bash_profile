@@ -21,7 +21,7 @@
 #============================================================================
 
 # KPP home folder
-KPP_HOME="/work/KPP3"
+KPP_HOME="~/work/KPP3"
 RUBY_BIN="~/.gem/ruby/2.7.0/bin"
 
 # Define PATH

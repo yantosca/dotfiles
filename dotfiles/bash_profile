@@ -10,6 +10,7 @@
 #============================================================================
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
+{%@@ if profile == "hypnotoad" @@%}
 #============================================================================
 # Add folders containing executables to $PATH (edit as necessary)
 #
@@ -27,9 +28,27 @@ RUBY_BIN="~/.gem/ruby/2.7.0/bin"
 # Define PATH
 PATH=~/bin:$(command -p getconf PATH):/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin:${RUBY_BIN}:${PATH}:${KPP_HOME}/bin
 
+{%@@ elif profile == "calculon" @@%}
+#============================================================================
+# PATH settings for MacOS machine "calculon"
+#============================================================================
+
+# Add KPP folder to tail of $PATH
+export PATH="${PATH}:~/repos/KPP3/bin"
+
+# Add ~/bin to head of $PATH
+export PATH="~/bin:${PATH}"
+
+# Add /usr/local/sbin to head of $PATH (to avoid warnings)
+export PATH="/usr/local/sbin:${PATH}"
+
+{%@@ endif @@%}
+#============================================================================
+# Make variables globally visible
+#============================================================================
+
 # Remove duplicates with awk (and prevent trailing ":" character)
 PATH=`printf %s "$PATH" | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}'`
 
-# Make PATH globally visible
 export PATH
 export KPP_HOME

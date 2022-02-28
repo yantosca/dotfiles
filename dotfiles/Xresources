@@ -33,12 +33,16 @@ xterm*titleBar:        true
 xterm*textUnderIcon:   true
 xterm*allowIconInput:  true
 xterm*autoRaise:       true
-!-------------------------------------------------------------------
+!----------------------------------------------------------------------------
 ! Generic font, should work on any Linux installation
-!xterm/font:            10x20
-!-------------------------------------------------------------------
+!xterm*font:            10x20
+!----------------------------------------------------------------------------
 ! Specific fonts, check to see if these are installed locally
 !xterm*faceName:        DejaVu Sans Mono:size=12:embolden=true
+{%@@ if profile == "hypnotoad" @@%}
 xterm*faceName:        Source Code Pro Medium:size=11:embolden=true
-!-------------------------------------------------------------------
+{%@@ elif profile == "calculon" @@%}
+xterm*faceName:        Source Code Pro Medium:size=12:embolden=true
+{%@@ endif @@%}
+!----------------------------------------------------------------------------
 !EOC

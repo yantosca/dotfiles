@@ -27,9 +27,6 @@
 #=============================================================================
 [[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
 
-# Load the X11 settings from .Xresources
-#xrdb ~/.Xresources
-
 ##############################################################################
 #####  Add your local SSH private keys to the SSH agent and start it     #####
 #####  cf https://gist.github.com/Perigrinox/git bash ssh agent.md       #####
@@ -79,6 +76,7 @@ unset env
 unset key_1
 unset key_2
 
+{%@@ if profile =="hypnotoad" @@%}
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/home/bob/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
@@ -93,4 +91,4 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
-
+{%@@ endif @@%}

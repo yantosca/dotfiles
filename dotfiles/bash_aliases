@@ -42,10 +42,10 @@ export LS_COLORS='no=00:fi=00:di=01;33:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40
 ulimit -c unlimited                          # Max out core dump size
 ulimit -m unlimited                          # Max out memory
 ulimit -v unlimited                          # Max out virtual memory
-if [[ "x${SYSTEM}" == "xLinux" ]]; then
-    ulimit -s unlimited                      # Max out stack memory
-fi
-
+{%@@ if profile == "hypnotoad" @@%}
+ulimit -s unlimited                          # Max out stack memory
+{%@@ endif @@%}
+ 
 #============================================================================
 # Define aliases and functions for Unix commands
 #============================================================================
@@ -54,20 +54,20 @@ fi
 SYSTEM=$(uname -s)
 
 # Define aliases that differ between MacOS (aka Darwin) and GNU Linux
-if [[ "x${SYSTEM}" == "xDarwin" ]]; then
-    alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs'
-    alias rm="rm -v"                                          
-    alias ls="ls -CF"
-else
-    alias emacs="emacs 2>/dev/null"                       
-    alias rm="rm -Iv"                                     
-    alias ls="ls -CF --time-style=long-iso --color=auto"
-    alias sp="sudo pacman -S"                             # Manjaro Linux
-    alias spu="sudo pacman -Syyu"                         # Manjaro Linux
-    alias spy="sudo pacman -Sy"                           # Manjaro Linux
-    alias sry="sudo pacman -R"                            # Manjaro Linux
-    alias supg="sudo apt update && sudo apt upgrade -y"   # Ubuntu Linux
-fi
+{%@@ if profile == "calculon" @@%}
+alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs'
+alias rm="rm -v"                                          
+alias ls="ls -CF"
+{%@@ elif profile == "hypnotoad" @@%}
+alias emacs="emacs 2>/dev/null"                       
+alias rm="rm -Iv"                                     
+alias ls="ls -CF --time-style=long-iso --color=auto"
+alias sp="sudo pacman -S"                             # Manjaro Linux
+alias spu="sudo pacman -Syyu"                         # Manjaro Linux
+alias spy="sudo pacman -Sy"                           # Manjaro Linux
+alias sry="sudo pacman -R"                            # Manjaro Linux
+alias supg="sudo apt update && sudo apt upgrade -y"   # Ubuntu Linux
+{%@@ endif @@%}
 
 # Define aliases that are the same for both MacOS and Linux
 alias disk="du -h -s -c"
@@ -161,27 +161,29 @@ alias gsu="git submodule update --init --recursive"
 alias hlog="git -C src/HEMCO log --oneline"
 alias hplog="git -C src/GCHP_GridComp/HEMCO_GridComp/HEMCO log --oneline"
 
+{%@@ if profile == "calculon" @@%}
 #============================================================================
-# Compiler settings (MacOS vs Linux)
+# Compiler settings (MacOS)
 #
 # NOTE: MacOSX installs Clang as /usr/bin/gcc, so we have to manually
 # force reference to gcc-11, g++-11, and gfortran-11, which HomeBrew
 # installs to /usr/local/bin.  (bmy, 10/28/21)
 #============================================================================
-if [[ "x${SYSTEM}" == "xDarwin" ]]; then
-    alias gcc=gcc-11
-    alias g++=g++-11
-    alias gfortran=gfortran-11
-    export CC=gcc
-    export CXX=g++-11
-    export FC=gfortran-11
-    export F77=gfortran-11
-else
-    export CC=gcc
-    export CXX=g++
-    export FC=gfortran
-    export F77=gfortran
-fi
+alias gcc=gcc-11
+alias g++=g++-11
+alias gfortran=gfortran-11
+export CC=gcc
+export CXX=g++-11
+export FC=gfortran-11
+export F77=gfortran-11
+{%@@ elif profile == "hypnotoad" @@%}
+#============================================================================
+# Compiler settings (Linux)
+#============================================================================
+export CC=gcc
+export CXX=g++
+export FC=gfortran
+export F77=gfortran
 
 #============================================================================
 # Python settings
@@ -214,7 +216,8 @@ fi
 
 # Jekyll command
 alias jserve="bundle exec jekyll serve"
-    
+{%@@ endif @@%}
+
 #============================================================================
 # Personal settings: Harvard logins
 #============================================================================

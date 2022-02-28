@@ -58,3 +58,21 @@ profiles:
     - f_init.el
     - f_emacs-config.org
     - f_emacs-config.el
+    actions:
+    - loginstall "/tmp/dotdrop-installation.log"
+  calculon:
+    dotfiles:
+    - f_bash_profile
+    - f_bashrc
+    - f_bash_aliases
+    - f_bash_logout
+    - f_dir_colors
+    - f_emacs_aliases
+    - f_gitconfig
+    - f_tmux.conf
+    - f_xresources
+    - f_init.el
+    - f_emacs-config.org
+    - f_emacs-config.el
+    actions:
+    - loginstall "/tmp/dotdrop-installation.log"

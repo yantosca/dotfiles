@@ -22,8 +22,8 @@
 #============================================================================
 
 # KPP home folder
-KPP_HOME="~/work/KPP3"
-RUBY_BIN="~/.gem/ruby/2.7.0/bin"
+KPP_HOME="${HOME}/work/KPP3"
+RUBY_BIN="${HOME}/.gem/ruby/2.7.0/bin"
 
 # Define PATH
 PATH=~/bin:$(command -p getconf PATH):/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin:${RUBY_BIN}:${PATH}:${KPP_HOME}/bin
@@ -34,10 +34,10 @@ PATH=~/bin:$(command -p getconf PATH):/sbin:/usr/sbin:/usr/local/bin:/usr/local/
 #============================================================================
 
 # Add KPP folder to tail of $PATH
-export PATH="${PATH}:~/repos/KPP3/bin"
+export PATH="${PATH}:${HOME}/repos/KPP3/bin"
 
 # Add ~/bin to head of $PATH
-export PATH="~/bin:${PATH}"
+export PATH="${HOME}/bin:${PATH}"
 
 # Add /usr/local/sbin to head of $PATH (to avoid warnings)
 export PATH="/usr/local/sbin:${PATH}"

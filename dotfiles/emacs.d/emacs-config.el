@@ -33,7 +33,11 @@
   (when (display-graphic-p)
     (set-face-font
      'default
+     {%@@ if profile == "hypnotoad" @@%}
      "-*-DejaVuSansMono-Bold-R-*-*-*-100-*-*-*-*-iso8859-1")))
+     {%@@ elif profile == "calculon" @@%}
+     "-*-source code pro-Bold-R-*-*-*-160-*-*-*-*-iso8859-1")))
+     {%@@ endif @@%}
 
 (unless enable-two-vertical-frames
   (set-frame-height (selected-frame) 41) ;; 40 lines
@@ -169,7 +173,7 @@
                 ("\\.tex$"       . latex-mode)
                 ("\\.m$"         . matlab-mode)
                 ("\\.md$"        . markdown-mode)
-		    ("\\.org$"       . org-mode)
+                ("\\.org$"       . org-mode)
                 ("\\.sh$"        . shell-script-mode)
                 ("\\.env$"       . shell-script-mode)
                 ("\\.centos7$"   . shell-script-mode)

@@ -433,7 +433,7 @@ Assign major modes to certain file extensions
                   ("\\.tex$"       . latex-mode)
                   ("\\.m$"         . matlab-mode)
                   ("\\.md$"        . markdown-mode)
-		      ("\\.org$"       . org-mode)
+                  ("\\.org$"       . org-mode)
                   ("\\.sh$"        . shell-script-mode)
                   ("\\.env$"       . shell-script-mode)
                   ("\\.centos7$"   . shell-script-mode)

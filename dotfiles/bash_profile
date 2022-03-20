@@ -34,7 +34,8 @@ PATH=~/bin:$(command -p getconf PATH):/sbin:/usr/sbin:/usr/local/bin:/usr/local/
 #============================================================================
 
 # Add KPP folder to tail of $PATH
-export PATH="${PATH}:${HOME}/repos/KPP3/bin"
+export KPP_HOME="${HOME}/repos/KPP3"
+export PATH="${PATH}:${KPP_HOME}/bin"
 
 # Add ~/bin to head of $PATH
 export PATH="${HOME}/bin:${PATH}"

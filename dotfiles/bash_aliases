@@ -113,6 +113,12 @@ function dos2unix() {
   awk '{ sub("\r$", ""); print }' $1 > $2
 }
 
+{%@@ if profile == "hypnotoad" @@%}
+# For KPP C-I tests in the Docker container
+alias dbkpp="docker build -f ./.ci-pipelines/Dockerfile -t kpp-build ."
+alias drkpp="docker run -it --entrypoint /bin/bash kpp-build"
+{%@@ endif @@%}
+
 #============================================================================
 # Define aliases and functions for Git commands
 #============================================================================

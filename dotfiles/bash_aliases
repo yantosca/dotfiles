@@ -44,6 +44,8 @@ ulimit -m unlimited                          # Max out memory
 ulimit -v unlimited                          # Max out virtual memory
 {%@@ if profile == "hypnotoad" @@%}
 ulimit -s unlimited                          # Max out stack memory
+{%@@ elif profile == "calculon" @@%}
+ulimit -s 65532                              # MacOS has limited stack memory
 {%@@ endif @@%}
  
 #============================================================================

@@ -38,7 +38,11 @@ Decide whether to use 1 or 2 vertical frames at startup.
 Enable vterm terminal emulation.
 
 #+BEGIN_SRC emacs-lisp
+  {%@@ if profile == "bender" @@%}
+  (setq enable-vterm nil)
+  {%@@ else @@%}
   (setq enable-vterm t)
+  {%@@ endif @@%}
 #+END_SRC
 
 
@@ -125,6 +129,8 @@ set with the emacs.Font specification in your ~/.Xresources file.
        "-*-DejaVuSansMono-Bold-R-*-*-*-100-*-*-*-*-iso8859-1")))
        {%@@ elif profile == "calculon" @@%}
        "-*-source code pro-Bold-R-*-*-*-160-*-*-*-*-iso8859-1")))
+       {%@@ elif profile == "bender" @@%}
+       "-*-source code pro-Bold-R-*-*-*-140-*-*-*-*-iso8859-1")))
        {%@@ endif @@%}
 #+END_SRC
 

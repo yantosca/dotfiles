@@ -41,6 +41,8 @@ xterm*autoRaise:       true
 !xterm*faceName:        DejaVu Sans Mono:size=12:embolden=true
 {%@@ if profile == "hypnotoad" @@%}
 xterm*faceName:        Source Code Pro Medium:size=11:embolden=true
+{%@@ elif profile == "bender" @@%}
+xterm*faceName:        Source Code Pro Medium:size=11:embolden=true
 {%@@ elif profile == "calculon" @@%}
 xterm*faceName:        Source Code Pro Medium:size=12:embolden=true
 {%@@ endif @@%}

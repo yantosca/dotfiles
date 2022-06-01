@@ -42,10 +42,10 @@ export LS_COLORS='no=00:fi=00:di=01;33:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40
 ulimit -c unlimited                          # Max out core dump size
 ulimit -m unlimited                          # Max out memory
 ulimit -v unlimited                          # Max out virtual memory
-{%@@ if profile == "hypnotoad" @@%}
-ulimit -s unlimited                          # Max out stack memory
-{%@@ elif profile == "calculon" @@%}
+{%@@ if profile == "calculon" @@%}
 ulimit -s 65532                              # MacOS has limited stack memory
+{%@@ else @@%}
+ulimit -s unlimited                          # Max out stack memory
 {%@@ endif @@%}
  
 #============================================================================
@@ -64,10 +64,10 @@ alias ls="ls -CF"
 alias emacs="emacs 2>/dev/null"                       
 alias rm="rm -Iv"                                     
 alias ls="ls -CF --time-style=long-iso --color=auto"
-alias sp="sudo pacman -S"                             # Manjaro Linux
-alias spu="sudo pacman -Syyu"                         # Manjaro Linux
-alias spy="sudo pacman -Sy"                           # Manjaro Linux
-alias sry="sudo pacman -R"                            # Manjaro Linux
+{%@@ elif profile == "bender" @@%}
+alias emacs="emacs 2>/dev/null"                       
+alias rm="rm -Iv"                                     
+alias ls="ls -CF --time-style=long-iso --color=auto"
 alias supg="sudo apt update && sudo apt upgrade -y"   # Ubuntu Linux
 {%@@ endif @@%}
 
@@ -224,6 +224,14 @@ fi
 
 # Jekyll command
 alias jserve="bundle exec jekyll serve"
+{%@@ elif profile == "bender" @@%}
+#============================================================================
+# Compiler settings (Linux)
+#============================================================================
+export CC=gcc
+export CXX=g++
+export FC=gfortran
+export F77=gfortran
 {%@@ endif @@%}
 
 #============================================================================

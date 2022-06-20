@@ -23,7 +23,6 @@
 
 # KPP settings
 export KPP_HOME="${HOME}/work/KPP3"
-export COMPILER=GFORTRAN
 
 # Ruby Gems folder
 export RUBY_BIN="${HOME}/.gem/ruby/2.7.0/bin"
@@ -37,15 +36,12 @@ PATH=~/bin:$(command -p getconf PATH):/sbin:/usr/sbin:/usr/local/bin:/usr/local/
 #============================================================================
 
 # Add KPP folder to tail of $PATH and define KPP compiler
-export COMPILER=GFORTRAN
-export KPP_HOME="${HOME}/repos/KPP3"
+export KPP_HOME="${HOME}/work/KPP3"
 export PATH="${PATH}:${KPP_HOME}/bin"
 
-# Add ~/bin to head of $PATH
-export PATH="${HOME}/bin:${PATH}"
-
+# Define PATH
 # Add /usr/local/sbin to head of $PATH (to avoid warnings)
-export PATH="/usr/local/sbin:${PATH}"
+PATH=/usr/local/sbin/:${HOME}/bin:$(command -p getconf PATH):/usr/local/bin:/usr/local/sbin:${PATH}:${KPP_HOME}/bin
 
 {%@@ elif profile == "bender" @@%}
 #============================================================================
@@ -60,7 +56,6 @@ export PATH="/usr/local/sbin:${PATH}"
 
 # KPP settings
 export KPP_HOME="${HOME}/work/KPP3"
-export COMPILER=GFORTRAN
 
 # Define PATH
 PATH=~/bin:$(command -p getconf PATH):/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin:${PATH}:${KPP_HOME}/bin

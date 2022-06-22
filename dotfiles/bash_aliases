@@ -49,7 +49,7 @@ ulimit -s unlimited                          # Max out stack memory
 {%@@ endif @@%}
  
 #============================================================================
-# Define aliases and functions for Unix commands
+# Define aliases and functions for common commands
 #============================================================================
 
 # System name
@@ -120,6 +120,16 @@ function dos2unix() {
 alias dbkpp="docker build -f ./.ci-pipelines/Dockerfile -t kpp-build ."
 alias drkpp="docker run -it --entrypoint /bin/bash kpp-build"
 {%@@ endif @@%}
+
+# KPP directory change aliases
+alias kcp="cd ${KPP_HOME}/.ci-pipelines"
+alias kct="cd ${KPP_HOME}/ci-tests"
+alias kdo="cd ${KPP_HOME}/docs"
+alias kdr="cd ${KPP_HOME}/drv"
+alias kge="cd ${KPP_HOME}/general"
+alias kmo="cd ${KPP_HOME}/models"
+alias ksr="cd ${KPP_HOME}/src"
+alias kut="cd ${KPP_HOME}/util"
 
 #============================================================================
 # Define aliases and functions for Git commands

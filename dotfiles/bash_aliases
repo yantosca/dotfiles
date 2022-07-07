@@ -125,7 +125,7 @@ export KPP_FLEX_LIB_DIR=/usr/local/Cellar/flex/2.6.4_2/lib
 {%@@ endif @@%}
 
 # KPP directory change aliases
-alias kh="$cd ${KPP_HOME}"
+alias kh="cd ${KPP_HOME}"
 alias kcp="cd ${KPP_HOME}/.ci-pipelines"
 alias kct="cd ${KPP_HOME}/ci-tests"
 alias kdo="cd ${KPP_HOME}/docs"

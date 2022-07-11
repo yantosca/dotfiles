@@ -274,9 +274,8 @@ function hgo() {
 #============================================================================
 
 # Amazon S3 commands
-alias s3copy="aws s3 cp -request-payer=requester "
+alias s3cp="aws s3 cp -request-payer=requester "
 alias s3ls="aws s3 ls -request-payer=requester "
-
 function awsgo() {
     ##### Log into an AWS instance #####
     ssh ubuntu@${1}
@@ -297,5 +296,27 @@ function cm() {
 # Personal settings: Dotdrop (AUR package) for managing system files
 #============================================================================
 alias dotdrop="~/repos/dotfiles/dotdrop.sh --cfg=~/repos/dotfiles/config.yaml"
+
+#============================================================================
+# Personal settings: Wrapper functions for pandoc
+#============================================================================
+
+# Mediawiki to rst
+function mw2rst() {
+    base=$(basename $1)
+    pandoc -f mediawiki -t rst ${base}.mw -o ${base}.rst
+}    
+
+# Mediawiki to markdown
+function mw2md() {
+    base=$(basename $1)
+    pandoc -f mediawiki -t markdown ${base}.mw -o ${base}.rst
+}    
+
+# LaTeX to rst
+function latex2rst() {
+    base=$(basename $1)
+    pandoc -f latex -t rest ${base}.mw -o ${base}.rst
+}    
 
 #EOC

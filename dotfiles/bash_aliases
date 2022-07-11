@@ -309,7 +309,7 @@ function mw2rst() {
 
 # Mediawiki to markdown
 function mw2md() {
-    base=${1/.mw/)
+    base=${1/.mw/}
     pandoc -f mediawiki -t markdown ${base}.mw -o ${base}.rst
 }
 

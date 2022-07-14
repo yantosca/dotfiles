@@ -137,6 +137,9 @@ alias kut="cd ${KPP_HOME}/util"
 alias kit="${KPP_HOME}/.ci-pipelines/ci-testing-script.sh"
 alias kic="${KPP_HOME}/.ci-pipelines/ci-cleanup-script.sh"
 
+# Alias for sphinx-readthedocs
+alias sph="sphinx-autobuild source build/html"
+
 #============================================================================
 # Define aliases and functions for Git commands
 #============================================================================

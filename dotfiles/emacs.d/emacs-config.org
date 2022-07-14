@@ -130,7 +130,7 @@ set with the emacs.Font specification in your ~/.Xresources file.
        {%@@ elif profile == "calculon" @@%}
        "-*-source code pro-Bold-R-*-*-*-160-*-*-*-*-iso8859-1")))
        {%@@ elif profile == "bender" @@%}
-       "-*-source code pro-Bold-R-*-*-*-140-*-*-*-*-iso8859-1")))
+       "-*-DejaVuSansMono-Bold-R-*-*-*-100-*-*-*-*-iso8859-1")))
        {%@@ endif @@%}
 #+END_SRC
 

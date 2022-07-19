@@ -30,9 +30,6 @@ export RUBY_BIN="${HOME}/.gem/ruby/2.7.0/bin"
 # Define PATH
 PATH=~/bin:$(command -p getconf PATH):/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin:${RUBY_BIN}:${PATH}:${KPP_HOME}/bin
 
-# Start barrier (to share keyboard & mouse)
-barrier > /dev/null 2>&1 &
-
 {%@@ elif profile == "calculon" @@%}
 #============================================================================
 # PATH settings for MacOS machine "calculon"

@@ -1,6 +1,4 @@
 !------------------------------------------------------------------------------
-!                  GEOS-Chem Global Chemical Transport Model                  !
-!------------------------------------------------------------------------------
 !BOP
 !
 ! !MODULE: .Xresources
@@ -15,36 +13,62 @@
 !  Based on examples from:
 !    http://www2.its.strath.ac.uk/courses/x/subsection3_9_4.html
 !    http://infohost.nmt.edu/tcc/help/pubs/dotfiles/xdefaults.html
+!    https://aduros.com/blog/xterm-its-better-than-you-thought/
 !
 ! !REVISION HISTORY:
 !  Check the revision history with the gitk browser!
 !EOP
 !------------------------------------------------------------------------------
 !BOC
-xterm*loginShell:      true
-xterm*background:      DarkSlateGray
-xterm*foreground:      LemonChiffon
-xterm*cursorColor:     FireBrick
-xterm*termType:        xterm
-xterm*geometry:        90x26+0+0
-xterm*saveLines:       10000
-xterm*scrollBar:       true
-xterm*titleBar:        true
-xterm*textUnderIcon:   true
-xterm*allowIconInput:  true
-xterm*autoRaise:       true
+
+XTerm.*.allowIconInput:    true
+XTerm.*.autoRaise:         true
+XTerm.*.background:        DarkSlateGray
+XTerm.*.bellIsUrgent:      true
+XTerm.*.boldMode:          true
+XTerm.*.cursorColor:       FireBrick
+XTerm.*.foreground:        LemonChiffon
+XTerm.*.geometry:          90x26+0+0
+XTerm.*.locale:            false
+XTerm.*.loginShell:        true
+XTerm.*.metaSendsEscape:   true
+XTerm.*.saveLines:         10000
+XTerm.*.scrollBar:         true
+XTerm.*.scrollKey:         true
+XTerm.*.scrollTtyOutput:   false
+XTerm.*.termType:          xterm
+XTerm.*.textUnderIcon:     true
+XTerm.*.titleBar:          true
+XTerm.*.utf8:              true
+
 !----------------------------------------------------------------------------
-! Generic font, should work on any Linux installation
-!xterm*font:            10x20
+! Use X11 font
+!XTerm.*.font:              10x20
 !----------------------------------------------------------------------------
-! Specific fonts, check to see if these are installed locally
-!xterm*faceName:        DejaVu Sans Mono:size=12:embolden=true
-{%@@ if profile == "hypnotoad" @@%}
-xterm*faceName:        Source Code Pro Medium:size=11:embolden=true
-{%@@ elif profile == "bender" @@%}
-xterm*faceName:        Source Code Pro Medium:size=11:embolden=true
+! Use DejaVu Sans Mono 12pt
+!XTerm.*.faceName:          DejaVu Sans Mono
+!Xterm.*.faceSize:          12
+!----------------------------------------------------------------------------
+{%@@ if profile == "bender" @@%}
+! Use Source Code Pro Medium 11 pt
+XTerm.*.faceName:          Source Code Pro Medium
+XTerm.*.faceSize:          11
 {%@@ elif profile == "calculon" @@%}
-xterm*faceName:        Source Code Pro Medium:size=12:embolden=true
+! Use Source Code Pro Medium 12pt
+XTerm.*.faceName:          Source Code Pro Medium
+XTerm.*.faceSize:          12
+{%@@ elif profile == "hypnotoad" @@%}
+! Use Source Code Pro Medium 11 pt
+XTerm.*.faceName:          Source Code Pro Medium
+XTerm.*.faceSize:          11
 {%@@ endif @@%}
 !----------------------------------------------------------------------------
+
+! Keybindings
+XTerm.vt100.translations: #override \n\
+    Ctrl Shift <Key>N: scroll-back(1, halfpage) \n\
+    Ctrl Shift <Key>T: scroll-forw(1, halfpage) \n\
+    Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
+    Ctrl Shift <Key>V: insert-selection(CLIPBOARD)
+    Ctrl Shift <Key>H: set-altscreen(toggle)
 !EOC

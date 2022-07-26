@@ -51,15 +51,15 @@ XTerm.*.utf8:              true
 !----------------------------------------------------------------------------
 {%@@ if profile == "bender" @@%}
 ! Use Source Code Pro Medium 11 pt
-XTerm.*.faceName:          Source Code Pro Medium
+XTerm.*.faceName:          Source Code Pro Medium:embolden=true
 XTerm.*.faceSize:          11
 {%@@ elif profile == "calculon" @@%}
 ! Use Source Code Pro Medium 12pt
-XTerm.*.faceName:          Source Code Pro Medium
-XTerm.*.faceSize:          12
+XTerm.*.faceName:          Source Code Pro Medium:embolden=true
+XTerm.*.faceSize:          13
 {%@@ elif profile == "hypnotoad" @@%}
 ! Use Source Code Pro Medium 11 pt
-XTerm.*.faceName:          Source Code Pro Medium
+XTerm.*.faceName:          Source Code Pro Medium:embolden=true
 XTerm.*.faceSize:          11
 {%@@ endif @@%}
 !----------------------------------------------------------------------------

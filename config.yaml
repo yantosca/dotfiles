@@ -42,6 +42,9 @@ dotfiles:
   f_emacs-config.el:
     src: emacs.d/emacs-config.el
     dst: ~/.emacs.d/emacs-config.el
+  f_bash_functions:
+    src: bash_functions
+    dst: ~/.bash_functions
 profiles:
   hypnotoad:
     dotfiles:
@@ -58,6 +61,7 @@ profiles:
     - f_init.el
     - f_emacs-config.org
     - f_emacs-config.el
+    - f_bash_functions
   calculon:
     dotfiles:
     - f_bash_profile

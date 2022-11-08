@@ -4,13 +4,12 @@
 # !MODULE: .bash_aliases
 #
 # !DESCRIPTION: A .bashrc-style file that you can use to contain your own
-#  personal settings for Linux desktops.  Contains useful settings for
-#  connecting to the Amazon Web Services cloud computing environment.
-#  Feel free to add/change/remove any of these settings as you wish.
+#  personal settings for Linux desktops.  Functions are contained in the
+#  ~/.bash_functions startup file.
 #\\
 #\\
 # !CALLING SEQUENCE:
-#  source ~/.bash_aliases
+#  . ~/.bash_aliases
 #  (will also be called each time you source ~/.bashrc)
 #
 # !AUTHOR
@@ -110,11 +109,6 @@ alias tmuxde="tmux detach "
 # Slack aliases
 alias slack="slack 2>/dev/null 1>/dev/null"
 
-# Convert a windows file to Unix
-function dos2unix() {
-  awk '{ sub("\r$", ""); print }' $1 > $2
-}
-
 {%@@ if profile == "hypnotoad" @@%}
 # For KPP C-I tests in the Docker container
 alias dbkpp="docker build -f ./.ci-pipelines/Dockerfile -t kpp-build ."
@@ -151,31 +145,6 @@ alias gl="git log"
 alias glo="git log --oneline"
 alias glp="git log --pretty=format:'%h : %s' --topo-order --graph"
 alias update_tags="git tag -l | xargs git tag -d && git fetch -t"
-
-function gbup() {
-    ###### Set a branch to follow a remote branch #####
-    git branch --set-upstream-to=origin/${1} ${1}
-}
-
-function gbrd() {
-    ###### Remove remote branches #####
-    git branch -r -d origin/$1
-}
-
-function gprune() {
-    ##### Remove local and remote branches #####
-    git branch -d $1
-    gbrd $1
-}
-
-function ghgc() {
-    ##### Clone a repo from github.com/geoschem #####
-    git clone git@github.com:geoschem/${1}.git
-}
-function ghy() {
-    ##### Clone a repo from github.com/yantosca #####
-    git clone git@github.com:yantosca/${1}.git
-}
 
 # Git aliases for GEOS-Chem
 #source /etc/bash_completion.d/git
@@ -266,12 +235,6 @@ alias bmygo="ssh bmy@bmy.as.harvard.edu"
 # Log into FASRC round-robin login nodes
 alias rcgo="ssh ryantosca@login.rc.fas.harvard.edu"
 
-function hgo() {
-    ##### Log into a holylogin node #####
-    node=$(printf %02d $1)
-    ssh ryantosca@holylogin${node}.rc.fas.harvard.edu
-}
-
 #============================================================================
 # Personal settings: AWS cloud
 #============================================================================
@@ -279,48 +242,9 @@ function hgo() {
 # Amazon S3 commands
 alias s3cp="aws s3 cp -request-payer=requester "
 alias s3ls="aws s3 ls -request-payer=requester "
-function awsgo() {
-    ##### Log into an AWS instance #####
-    ssh ubuntu@${1}
-}
-
-#============================================================================
-# Personal settings: CMatrix
-#============================================================================
-
-function cm() {
-    ##### CMatrix screen saver #####
-    export LANG=ja_JP.eucjp
-    cmatrix -cs
-    export LANG=en_US.utf8
-}
 
 #============================================================================
 # Personal settings: Dotdrop (AUR package) for managing system files
 #============================================================================
 alias dotdrop="~/repos/dotfiles/dotdrop.sh --cfg=~/repos/dotfiles/config.yaml"
-
-#============================================================================
-# Personal settings: Wrapper functions for pandoc
-#============================================================================
-
-# Mediawiki to rst
-function mw2rst() {
-    base=${1/.mw/}
-    pandoc -f mediawiki -t rst ${base}.mw -o ${base}.rst
-}
-
-# Mediawiki to markdown
-function mw2md() {
-    base=${1/.mw/}
-    pandoc -f mediawiki -t markdown ${base}.mw -o ${base}.md
-}
-
-# LaTeX to rst
-function latex2rst() {
-    base=$$1/.tex/}
-    base=$$1/.latex/}
-    pandoc -f latex -t rest ${base}.mw -o ${base}.rst
-}
-
 #EOC

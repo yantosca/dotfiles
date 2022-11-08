@@ -25,7 +25,8 @@
 #=============================================================================
 # Load important aliases and customizations
 #=============================================================================
-[[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
+[[ -f ~/.bash_aliases   ]] && . ~/.bash_aliases
+[[ -f ~/.bash_functions ]] && . ~/.bash_functions
 
 ##############################################################################
 #####  Add your local SSH private keys to the SSH agent and start it     #####

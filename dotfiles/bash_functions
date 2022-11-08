@@ -1,0 +1,109 @@
+#----------------------------------------------------------------------------
+#BOP
+#
+# !MODULE: .bash_functions
+#
+# !DESCRIPTION: A .bashrc-style file that you can use to contain your own
+#  bash functions Linux desktops.
+#\\
+#\\
+# !CALLING SEQUENCE:
+#  . ~/.bash_functions
+#  (will also be called each time you source ~/.bashrc)
+#
+# !AUTHOR
+#  Bob Yantosca (yantosca@seas.harvard.edu), 08 Nov 2022
+#
+# !REVISION HISTORY:
+#  Use the gitk browser to view the revision history!
+#EOP
+#----------------------------------------------------------------------------
+#BOC
+
+#============================================================================
+# Functions: General commands
+#============================================================================
+function dos2unix() {
+  ##### Remove DOS-style return #####
+  awk '{ sub("\r$", ""); print }' $1 > $2
+}
+
+#============================================================================
+# Define functions for Git commands
+#============================================================================
+function gbup() {
+    ###### Set a branch to follow a remote branch #####
+    git branch --set-upstream-to=origin/${1} ${1}
+}
+
+function gbrd() {
+    ###### Remove remote branches #####
+    git branch -r -d origin/$1
+}
+
+function gprune() {
+    ##### Remove local and remote branches #####
+    git branch -d $1
+    gbrd $1
+}
+
+function ghgc() {
+    ##### Clone a repo from github.com/geoschem #####
+    git clone git@github.com:geoschem/${1}.git
+}
+
+function ghy() {
+    ##### Clone a repo from github.com/yantosca #####
+    git clone git@github.com:yantosca/${1}.git
+}
+
+#============================================================================
+# Functions: Harvard logins
+#============================================================================
+function hgo() {
+    ##### Log into a holylogin node #####
+    node=$(printf %02d $1)
+    ssh ryantosca@holylogin${node}.rc.fas.harvard.edu
+}
+
+#============================================================================
+# Functions: AWS cloud
+#============================================================================
+function awsgo() {
+    ##### Log into an AWS instance #####
+    ssh ubuntu@${1}
+}
+
+#============================================================================
+# Functions: CMatrix
+#============================================================================
+function cm() {
+    ##### CMatrix screen saver #####
+    export LANG=ja_JP.eucjp
+    cmatrix -cs
+    export LANG=en_US.utf8
+}
+
+#============================================================================
+# Functions: Wrapper functions for pandoc
+#============================================================================
+
+function mw2rst() {
+    ##### MediaWiki to ReST #####
+    base=${1/.mw/}
+    pandoc -f mediawiki -t rst ${base}.mw -o ${base}.rst
+}
+
+function mw2md() {
+    ##### MediaWiki to MarkDown #####
+    base=${1/.mw/}
+    pandoc -f mediawiki -t markdown ${base}.mw -o ${base}.md
+}
+
+function latex2rst() {
+    ##### LateX to ReST #####
+    base=$$1/.tex/}
+    base=$$1/.latex/}
+    pandoc -f latex -t rest ${base}.mw -o ${base}.rst
+}
+#EOC

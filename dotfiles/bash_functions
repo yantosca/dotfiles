@@ -26,18 +26,19 @@
 
 function gbup() {
     ###### Set a branch to follow a remote branch #####
-    branch=${1/origin}
+    branch=${1/origin\/}
     git branch --set-upstream-to=origin/${branch} ${branch}
 }
 
 function gbrd() {
     ###### Remove remote branches #####
+    branch=${1/origin\/}
     git branch -r -d origin/$branch
 }
 
 function gprune() {
     ##### Remove local and remote branches #####
-    branch=${1/origin}
+    branch=${1/origin\/}
     git branch -d $branch
     gbrd $branch
 }

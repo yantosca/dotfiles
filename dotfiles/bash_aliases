@@ -148,9 +148,9 @@ alias update_tags="git tag -l | xargs git tag -d && git fetch -t"
 
 # Git aliases for GEOS-Chem
 #source /etc/bash_completion.d/git
-alias clone_gcc="git clone git@github.com:geoschem/GCClassic.git"
-alias clone_gchp="git clone git@github.com:geoschem/gchp.git"
-alias clone_hco="git clone git@github.com:geoschem:hemco.git"
+alias clone_gcc="git clone --recurse-submodules git@github.com:geoschem/GCClassic.git"
+alias clone_gchp="git clone --recurse-submodules git@github.com:geoschem/gchp.git"
+alias clone_hco="git clone --recurse-submodules git@github.com:geoschem:hemco.git"
 alias gitc="git -C CodeDir"
 alias glog="git -C src/GEOS-Chem log --oneline"
 alias gsu="git submodule update --init --recursive"

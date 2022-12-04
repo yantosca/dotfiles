@@ -91,3 +91,19 @@ profiles:
     - f_init.el
     - f_emacs-config.org
     - f_emacs-config.el
+  cygwin:
+    dotfiles:
+    - f_bash_profile
+    - f_bashrc
+    - f_bash_aliases
+    - f_bash_logout
+    - f_dir_colors
+    - f_emacs_aliases
+    - f_gitconfig
+    - f_tmux.conf
+    - f_xresources
+    - f_init.el
+    - f_emacs-config.org
+    - f_emacs-config.el
+    - f_bash_functions
+    - f_mintty.rc

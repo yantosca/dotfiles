@@ -22,6 +22,15 @@
 #=============================================================================
 [[ $- != *i* ]] && return
 
+{%@@ if profile =="cygwin" @@%}
+#==============================================================================
+# Settings specific to Cygwin-64
+#==============================================================================
+export USER=Bob                                   # User name
+[[ "x$DISPLAY" == "x" ]] && export DISPLAY=:0.0   # Display variable
+cd ~                                              # Start in home directory
+{%@@ endif @@%}
+
 #=============================================================================
 # Load important aliases and customizations
 #=============================================================================
@@ -88,6 +97,21 @@ else
         . "/home/bob/miniconda3/etc/profile.d/conda.sh"
     else
         export PATH="/home/bob/miniconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+{%@@ elif profile =="calculon" @@%}
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/bobyantosca/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/bobyantosca/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/Users/bobyantosca/miniconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/bobyantosca/miniconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup

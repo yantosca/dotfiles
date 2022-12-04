@@ -45,6 +45,9 @@ dotfiles:
   f_bash_functions:
     src: bash_functions
     dst: ~/.bash_functions
+  f_minttyrc:
+    src: minttyrc
+    dst: ~/.minttyrc
 profiles:
   hypnotoad:
     dotfiles:
@@ -106,4 +109,4 @@ profiles:
     - f_emacs-config.org
     - f_emacs-config.el
     - f_bash_functions
-    - f_mintty.rc
+    - f_minttyrc

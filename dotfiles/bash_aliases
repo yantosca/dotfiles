@@ -39,12 +39,14 @@ export LS_COLORS='no=00:fi=00:di=01;33:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40
 # Max out certain limits
 #============================================================================
 ulimit -c unlimited                          # Max out core dump size
-ulimit -m unlimited                          # Max out memory
 ulimit -v unlimited                          # Max out virtual memory
 {%@@ if profile == "calculon" @@%}
 ulimit -s 65532                              # MacOS has limited stack memory
 {%@@ else @@%}
 ulimit -s unlimited                          # Max out stack memory
+{%@@ endif @@%}
+{%@@ if profile != "cygwin" @@%}
+ulimit -m unlimited                          # Max out memory
 {%@@ endif @@%}
 
 #============================================================================
@@ -55,19 +57,23 @@ ulimit -s unlimited                          # Max out stack memory
 SYSTEM=$(uname -s)
 
 # Define aliases that differ between MacOS (aka Darwin) and GNU Linux
-{%@@ if profile == "calculon" @@%}
+{%@@ if profile == "bender" @@%}
+alias emacs="emacs 2>/dev/null"
+alias rm="rm -Iv"
+alias ls="ls -CF --time-style=long-iso --color=auto"
+alias supg="sudo apt update && sudo apt upgrade -y"   # Ubuntu Linux
+{%@@ elif profile == "calculon" @@%}
 alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs'
+alias rm="rm -v"
+alias ls="ls -CF"
+{%@@ elif profile == "calculon" @@%}
+alias emacs="emacs 2>/dev/null"
 alias rm="rm -v"
 alias ls="ls -CF"
 {%@@ elif profile == "hypnotoad" @@%}
 alias emacs="emacs 2>/dev/null"
 alias rm="rm -Iv"
 alias ls="ls -CF --time-style=long-iso --color=auto"
-{%@@ elif profile == "bender" @@%}
-alias emacs="emacs 2>/dev/null"
-alias rm="rm -Iv"
-alias ls="ls -CF --time-style=long-iso --color=auto"
-alias supg="sudo apt update && sudo apt upgrade -y"   # Ubuntu Linux
 {%@@ endif @@%}
 
 # Define aliases that are the same for both MacOS and Linux

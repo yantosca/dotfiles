@@ -125,11 +125,13 @@ set with the emacs.Font specification in your ~/.Xresources file.
     (when (display-graphic-p)
       (set-face-font
        'default
-       {%@@ if profile == "hypnotoad" @@%}
+       {%@@ if profile == "bender" @@%}
        "-*-DejaVuSansMono-Bold-R-*-*-*-100-*-*-*-*-iso8859-1")))
        {%@@ elif profile == "calculon" @@%}
        "-*-source code pro-Bold-R-*-*-*-160-*-*-*-*-iso8859-1")))
-       {%@@ elif profile == "bender" @@%}
+       {%@@ elif profile == "cygwin" @@%}
+       "-*-DejaVuSansMono-Bold-R-*-*-*-120-*-*-*-*-iso8859-1")))
+       {%@@ elif profile == "hypnotoad" @@%}
        "-*-DejaVuSansMono-Bold-R-*-*-*-100-*-*-*-*-iso8859-1")))
        {%@@ endif @@%}
 #+END_SRC

@@ -60,6 +60,22 @@ export KPP_HOME="${HOME}/work/KPP3"
 # Define PATH
 PATH=~/bin:$(command -p getconf PATH):/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin:${PATH}:${KPP_HOME}/bin
 
+export KPP_HOME
+
+{%@@ elif profile == "cygwin" @@%}
+#============================================================================
+# Add folders containing executables to $PATH (edit as necessary)
+#
+# From https://unix.stackexchange.com/questions/40749/remove-duplicate-path-entries-with-awk-command
+#
+#   I am entering my preferred PATH order here because it gets set,
+#   appended, reset, appended again and ends up in such a jumbled order.
+#   The duplicates get removed, preserving my preferred order.
+#============================================================================
+
+# Define PATH
+PATH=~/bin:$(command -p getconf PATH):/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin:${PATH}:
+
 {%@@ endif @@%}
 #============================================================================
 # Make variables globally visible
@@ -69,4 +85,3 @@ PATH=~/bin:$(command -p getconf PATH):/sbin:/usr/sbin:/usr/local/bin:/usr/local/
 PATH=`printf %s "$PATH" | awk -v RS=: '{ if (!arr[$0]++) {printf("%s%s",!ln++?"":":",$0)}}'`
 
 export PATH
-export KPP_HOME

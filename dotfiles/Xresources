@@ -42,8 +42,11 @@ XTerm.*.titleBar:          true
 XTerm.*.utf8:              true
 
 !----------------------------------------------------------------------------
+{%@@ if profile == "calculon" @@%}
 ! Use X11 font
-!XTerm.*.font:              10x20
+XTerm.*.font:              10x20
+XTerm.*.faceSize:          14
+{%@@ endif @@%}
 !----------------------------------------------------------------------------
 ! Use DejaVu Sans Mono 12pt
 !XTerm.*.faceName:          DejaVu Sans Mono
@@ -54,11 +57,12 @@ XTerm.*.utf8:              true
 XTerm.*.faceName:          Source Code Pro Medium:embolden=true
 XTerm.*.faceSize:          11
 {%@@ elif profile == "calculon" @@%}
-! Use Source Code Pro Medium 12pt
-XTerm.*.faceName:          Source Code Pro Medium:embolden=true
-XTerm.*.faceSize:          13
+! Use Source Code Pro Medium 12 pt
+!Xterm*faceName:            Source Code Pro Medium:embolden=true
+!XTerm.*.faceSize:          12
 {%@@ elif profile == "cygwin" @@%}
-xterm*faceName:            Source Code Pro Medium:embolden=true
+! Use Source Code Pro Medium 12 pt
+Xterm*faceName:            Source Code Pro Medium:embolden=true
 XTerm.*.faceSize:          12
 {%@@ elif profile == "hypnotoad" @@%}
 ! Use Source Code Pro Medium 11 pt

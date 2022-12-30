@@ -1,7 +1,14 @@
 Host *
   ServerAliveInterval 240
   ServerAliveCountMax 6
-  ForwardX11Trusted yes
+  ForwardX11Trusted   yes
+{%@@ if profile == "calculon" @@%}
+  # These settings are needed for MacOS
+  XAuthLocation       /opt/X11/bin/xauth  # Need to specify xauth path
+  ForwardAgent        yes                 # Manually specify agent forwarding
+  UseKeychain         yes                 # Save SSH keys for later use
+  AddKeysToAgent      yes                 # Save SSH keys for later use
+{%@@ endif @@%}
 
 Host login.rc.fas.harvard.edu
   HostName login.rc.fas.harvard.edu
@@ -11,3 +18,4 @@ Host holyjacob01
   HostName holyjacob01
   ProxyJump ryantosca@login.rc.fas.harvard.edu
   User ryantosca
+

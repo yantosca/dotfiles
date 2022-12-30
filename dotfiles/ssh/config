@@ -1,0 +1,13 @@
+Host *
+  ServerAliveInterval 240
+  ServerAliveCountMax 6
+  ForwardX11Trusted yes
+
+Host login.rc.fas.harvard.edu
+  HostName login.rc.fas.harvard.edu
+  User ryantosca
+
+Host holyjacob01
+  HostName holyjacob01
+  ProxyJump ryantosca@login.rc.fas.harvard.edu
+  User ryantosca

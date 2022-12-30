@@ -133,6 +133,8 @@ set with the emacs.Font specification in your ~/.Xresources file.
        "-*-DejaVuSansMono-Bold-R-*-*-*-120-*-*-*-*-iso8859-1")))
        {%@@ elif profile == "hypnotoad" @@%}
        "-*-DejaVuSansMono-Bold-R-*-*-*-100-*-*-*-*-iso8859-1")))
+       {%@@ elif profile == "zoidberg" @@%}
+       "-*-DejaVuSansMono-Bold-R-*-*-*-120-*-*-*-*-iso8859-1")))
        {%@@ endif @@%}
 #+END_SRC
 

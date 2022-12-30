@@ -1,0 +1,22 @@
+# Barrier configuration file for windows server "zoidberg"
+# C:/Users/bob/Appdata/Local/Barrier/barrier.sgc
+#
+# 3 screens from L to R: calculon zoidberg hypnotoad
+
+section: screens
+    calculon:
+	zoidberg:
+	hypnotoad:
+end
+
+section: links
+	calculon:
+		right = zoidberg
+
+	zoidberg:
+		left  = calculon
+		right = hypnotoad
+
+	hypnotoad:
+		left  = zoidberg
+end

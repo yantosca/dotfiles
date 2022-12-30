@@ -51,6 +51,10 @@ dotfiles:
   f_config:
     src: ssh/config
     dst: ~/.ssh/config
+  f_barrier.sgc:
+    src: barrier.sgc
+    dst: ~/.barrier.sgc
+    chmod: '700'
 profiles:
   hypnotoad:
     dotfiles:
@@ -86,6 +90,7 @@ profiles:
     - f_emacs-config.org
     - f_emacs-config.el
     - f_bash_functions
+    - f_barrier.sgc
   calculon:
     dotfiles:
     - f_bash_profile

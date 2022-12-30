@@ -68,6 +68,10 @@ XTerm.*.faceSize:          12
 ! Use Source Code Pro Medium 11 pt
 XTerm.*.faceName:          Source Code Pro Medium:embolden=true
 XTerm.*.faceSize:          11
+{%@@ elif profile == "zoidberg" @@%}
+! Use Source Code Pro Medium 11 pt
+XTerm.*.faceName:          Source Code Pro Medium:embolden=true
+XTerm.*.faceSize:          11
 {%@@ endif @@%}
 !----------------------------------------------------------------------------
 

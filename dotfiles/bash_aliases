@@ -66,11 +66,15 @@ alias supg="sudo apt update && sudo apt upgrade -y"   # Ubuntu Linux
 alias emacs='/Applications/Emacs.app/Contents/MacOS/Emacs'
 alias rm="rm -v"
 alias ls="ls -CF"
-{%@@ elif profile == "calculon" @@%}
+{%@@ elif profile == "cygwin" @@%}
 alias emacs="emacs 2>/dev/null"
 alias rm="rm -v"
 alias ls="ls -CF"
 {%@@ elif profile == "hypnotoad" @@%}
+alias emacs="emacs 2>/dev/null"
+alias rm="rm -Iv"
+alias ls="ls -CF --time-style=long-iso --color=auto"
+{%@@ elif profile == "zoidberg" @@%}
 alias emacs="emacs 2>/dev/null"
 alias rm="rm -Iv"
 alias ls="ls -CF --time-style=long-iso --color=auto"
@@ -122,6 +126,10 @@ alias drkpp="docker run -it --entrypoint /bin/bash kpp-build"
 {%@@ elif profile == "calculon" @@%}
 # Path o flex library for KPP (installed via Homebrew)
 export KPP_FLEX_LIB_DIR=/usr/local/Cellar/flex/2.6.4_2/lib
+{%@@ elif profile == "zoidberg" @@%}
+# For KPP C-I tests in the Docker container
+alias dbkpp="docker build -f ./.ci-pipelines/Dockerfile -t kpp-build ."
+alias drkpp="docker run -it --entrypoint /bin/bash kpp-build"
 {%@@ endif @@%}
 
 # KPP directory change aliases
@@ -163,7 +171,15 @@ alias gsu="git submodule update --init --recursive"
 alias hlog="git -C src/HEMCO log --oneline"
 alias hplog="git -C src/GCHP_GridComp/HEMCO_GridComp/HEMCO log --oneline"
 
-{%@@ if profile == "calculon" @@%}
+{%@@ if profile == "bender" @@%}
+#============================================================================
+# Compiler settings (Linux)
+#============================================================================
+export CC=gcc
+export CXX=g++
+export FC=gfortran
+export F77=gfortran
+{%@@ elif profile == "calculon" @@%}
 #============================================================================
 # Compiler settings (MacOS)
 #
@@ -218,7 +234,7 @@ fi
 
 # Jekyll command
 alias jserve="bundle exec jekyll serve"
-{%@@ elif profile == "bender" @@%}
+{%@@ elif profile == "zoidberg" @@%}
 #============================================================================
 # Compiler settings (Linux)
 #============================================================================
@@ -226,6 +242,38 @@ export CC=gcc
 export CXX=g++
 export FC=gfortran
 export F77=gfortran
+
+#============================================================================
+# Python settings
+#============================================================================
+if [[ "x${PYTHONPATH}" != "x" ]]; then
+
+    # Select Bob Y's custom environment (matplotlib 3)
+    alias sab="conda activate gcpy"
+    alias sdb="conda deactivate"
+
+    # Add Python repos to $PYTHONPATH
+    export PYTHONPATH=${PYTHONPATH}:${HOME}/python/gcpy
+
+    # Ignore warnings about deprecated options
+    export PYTHONWARNINGS=ignore::DeprecationWarning
+
+    # Settings for Python packages
+    export PYLINTRC=~/.pylint.rc
+
+    # Temporary Python folder (avoids warning messages)
+    export XDG_RUNTIME_DIR=/tmp/runtime-${USER}
+fi
+
+##============================================================================
+## Ruby & Jekyll settings
+##
+## Manjaro : https://wiki.archlinux.org/index.php/Ruby
+## Ubuntu  : https://jekyllrb.com/docs/installation/ubuntu/
+##============================================================================
+
+# Jekyll command
+alias jserve="bundle exec jekyll serve"
 {%@@ endif @@%}
 
 #============================================================================

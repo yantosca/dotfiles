@@ -48,6 +48,9 @@ dotfiles:
   f_minttyrc:
     src: minttyrc
     dst: ~/.minttyrc
+  f_config:
+    src: ssh/config
+    dst: ~/.ssh/config
 profiles:
   hypnotoad:
     dotfiles:
@@ -65,12 +68,31 @@ profiles:
     - f_emacs-config.org
     - f_emacs-config.el
     - f_bash_functions
+    - f_config
+  zoidberg:
+    dotfiles:
+    - f_bash_profile
+    - f_bashrc
+    - f_bash_aliases
+    - f_bash_logout
+    - f_config
+    - f_condarc
+    - f_dir_colors
+    - f_emacs_aliases
+    - f_gitconfig
+    - f_tmux.conf
+    - f_xresources
+    - f_init.el
+    - f_emacs-config.org
+    - f_emacs-config.el
+    - f_bash_functions
   calculon:
     dotfiles:
     - f_bash_profile
     - f_bashrc
     - f_bash_aliases
     - f_bash_logout
+    - f_config
     - f_dir_colors
     - f_emacs_aliases
     - f_gitconfig
@@ -86,6 +108,7 @@ profiles:
     - f_bash_aliases
     - f_bash_logout
     - f_condarc
+    - f_config
     - f_dir_colors
     - f_emacs_aliases
     - f_gitconfig
@@ -100,6 +123,7 @@ profiles:
     - f_bashrc
     - f_bash_aliases
     - f_bash_logout
+    - f_config
     - f_dir_colors
     - f_emacs_aliases
     - f_gitconfig

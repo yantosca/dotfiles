@@ -35,7 +35,7 @@
      'default
      {%@@ if profile == "hypnotoad" @@%}
      "-*-DejaVuSansMono-Bold-R-*-*-*-100-*-*-*-*-iso8859-1")))
-     {%@@ if profile == "zoidberg" @@%}
+     {%@@ elif profile == "zoidberg" @@%}
      "-*-DejaVuSansMono-Bold-R-*-*-*-120-*-*-*-*-iso8859-1")))
      {%@@ elif profile == "calculon" @@%}
      "-*-source code pro-Bold-R-*-*-*-160-*-*-*-*-iso8859-1")))

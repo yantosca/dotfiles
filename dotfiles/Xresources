@@ -47,7 +47,6 @@ XTerm.*.utf8:              true
 XTerm.*.font:              10x20
 XTerm.*.faceSize:          14
 {%@@ endif @@%}
-!----------------------------------------------------------------------------
 ! Use DejaVu Sans Mono 12pt
 !XTerm.*.faceName:          DejaVu Sans Mono
 !Xterm.*.faceSize:          12
@@ -71,7 +70,7 @@ XTerm.*.faceSize:          11
 {%@@ elif profile == "zoidberg" @@%}
 ! Use Source Code Pro Medium 11 pt
 XTerm.*.faceName:          Source Code Pro Medium:embolden=true
-XTerm.*.faceSize:          11
+XTerm.*.faceSize:          12
 {%@@ endif @@%}
 !----------------------------------------------------------------------------
 

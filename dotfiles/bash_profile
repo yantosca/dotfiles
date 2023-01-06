@@ -95,6 +95,13 @@ PATH=~/bin:$(command -p getconf PATH):/sbin:/usr/sbin:/usr/local/bin:/usr/local/
 # Also set the language to be persistent
 export LANG=en_US
 
+# Tell X11 programs to render on Windows, not linux, side
+# (cf https://docs.mesa3d.org/envvars.html)
+#
+# Also consider adding an exception for WSL in your anti-virus software
+# (cf https://medium.com/@leandrocrs/speeding-up-wsl-i-o-up-than-5x-fast-saving-a-lot-of-battery-life-cpu-usage-c3537dd03c74)
+export LIBGL_ALWAYS_INDIRECT=1
+
 {%@@ endif @@%}
 #============================================================================
 # Make variables globally visible

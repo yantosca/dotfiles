@@ -102,6 +102,11 @@ export LANG=en_US
 # (cf https://medium.com/@leandrocrs/speeding-up-wsl-i-o-up-than-5x-fast-saving-a-lot-of-battery-life-cpu-usage-c3537dd03c74)
 export LIBGL_ALWAYS_INDIRECT=1
 
+# Also set the display to the Windows IP address
+LINUX_IP=$(ip addr | awk '/inet / && !/127.0.0.1/ {split($2,a,"/"); print a[1]}')
+WINDOWS_IP=$(ip route | awk '/^default/ {print $3}')
+export DISPLAY="$WINDOWS_IP:0"
+
 {%@@ endif @@%}
 #============================================================================
 # Make variables globally visible

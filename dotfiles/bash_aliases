@@ -283,9 +283,6 @@ alias jserve="bundle exec jekyll serve"
 # Log directly into holyjacob01
 alias hj1="ssh holyjacob01"
 
-# Log into AS
-alias bmygo="ssh bmy@bmy.as.harvard.edu"
-
 # Log into FASRC round-robin login nodes
 alias rcgo="ssh ryantosca@login.rc.fas.harvard.edu"
 
@@ -296,6 +293,7 @@ alias rcgo="ssh ryantosca@login.rc.fas.harvard.edu"
 # Amazon S3 commands
 alias s3cp="aws s3 cp -request-payer=requester "
 alias s3ls="aws s3 ls -request-payer=requester "
+alias s3rm="aws s3 rm -request-payer=requester "
 
 #============================================================================
 # Personal settings: Dotdrop (AUR package) for managing system files

@@ -32,7 +32,7 @@ XTerm.*.geometry:          90x26+0+0
 XTerm.*.locale:            false
 XTerm.*.loginShell:        true
 XTerm.*.metaSendsEscape:   true
-XTerm.*.saveLines:         10000
+XTerm.*.saveLines:         20000
 XTerm.*.scrollBar:         true
 XTerm.*.scrollKey:         true
 XTerm.*.scrollTtyOutput:   false

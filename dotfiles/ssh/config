@@ -3,7 +3,6 @@ Host *
   ServerAliveInterval 240                 # Prevents session timeouts
   ServerAliveCountMax 6                   # Prevents session timeouts
   ForwardX11Trusted   yes                 # X11 forwarding (-Y)
-  ForwardX11          yes                 # X11 forwarding (-X)
   ForwardAgent        yes                 # SSH key forwarding (-A)
 {%@@ if profile == "calculon" @@%}
   # These settings are needed for MacOS

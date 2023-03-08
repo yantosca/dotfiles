@@ -1,0 +1,16 @@
+name: dotdrop
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.9
+  - pip
+  - pip:
+      - Jinja2
+      - docopt
+      - ruamel.yaml
+      - python-magic
+      - packaging
+      - requests
+      - toml
+      - distro

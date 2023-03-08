@@ -194,6 +194,7 @@ export CC=gcc
 export CXX=g++-11
 export FC=gfortran-11
 export F77=gfortran-11
+
 {%@@ elif profile == "hypnotoad" @@%}
 #============================================================================
 # Compiler settings (Linux)
@@ -202,28 +203,6 @@ export CC=gcc
 export CXX=g++
 export FC=gfortran
 export F77=gfortran
-
-#============================================================================
-# Python settings
-#============================================================================
-if [[ "x${PYTHONPATH}" != "x" ]]; then
-
-    # Select Bob Y's custom environment (matplotlib 3)
-    alias sab="conda activate gcpy"
-    alias sdb="conda deactivate"
-
-    # Add Python repos to $PYTHONPATH
-    export PYTHONPATH=${PYTHONPATH}:${HOME}/python/gcpy
-
-    # Ignore warnings about deprecated options
-    export PYTHONWARNINGS=ignore::DeprecationWarning
-
-    # Settings for Python packages
-    export PYLINTRC=~/.pylint.rc
-
-    # Temporary Python folder (avoids warning messages)
-    export XDG_RUNTIME_DIR=/tmp/runtime-${USER}
-fi
 
 ##============================================================================
 ## Ruby & Jekyll settings
@@ -243,28 +222,6 @@ export CXX=g++
 export FC=gfortran
 export F77=gfortran
 
-#============================================================================
-# Python settings
-#============================================================================
-if [[ "x${PYTHONPATH}" != "x" ]]; then
-
-    # Select Bob Y's custom environment (matplotlib 3)
-    alias sab="conda activate gcpy"
-    alias sdb="conda deactivate"
-
-    # Add Python repos to $PYTHONPATH
-    export PYTHONPATH=${PYTHONPATH}:${HOME}/python/gcpy
-
-    # Ignore warnings about deprecated options
-    export PYTHONWARNINGS=ignore::DeprecationWarning
-
-    # Settings for Python packages
-    export PYLINTRC=~/.pylint.rc
-
-    # Temporary Python folder (avoids warning messages)
-    export XDG_RUNTIME_DIR=/tmp/runtime-${USER}
-fi
-
 ##============================================================================
 ## Ruby & Jekyll settings
 ##
@@ -275,6 +232,28 @@ fi
 # Jekyll command
 alias jserve="bundle exec jekyll serve"
 {%@@ endif @@%}
+
+#============================================================================
+# Python settings
+#============================================================================
+if [[ "x${PYTHONPATH}" == "x" ]]; then
+
+    # Select Bob Y's custom environment (matplotlib 3)
+    alias sab="conda activate gcpy_env"
+    alias sdb="conda deactivate"
+
+    # Add Python repos to $PYTHONPATH
+    export PYTHONPATH=${PYTHONPATH}:${HOME}/work/gcpy
+
+    # Ignore warnings about deprecated options
+    export PYTHONWARNINGS=ignore::DeprecationWarning
+
+    # Settings for Python packages
+    export PYLINTRC=~/.pylint.rc
+
+    # Temporary Python folder (avoids warning messages)
+    export XDG_RUNTIME_DIR=/tmp/runtime-${USER}
+fi
 
 #============================================================================
 # Personal settings: Harvard logins

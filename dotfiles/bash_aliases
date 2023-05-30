@@ -21,9 +21,12 @@
 #----------------------------------------------------------------------------
 #BOC
 
-#============================================================================
-# Look-and-feel
-#============================================================================
+#==============================================================================
+# %%%%% Personal settings: Look-and-feel %%%%%
+#
+# Prompt and color settings for Xterm
+# These look better against the default background color "DarkSlateGray"
+#==============================================================================
 
 # Settings for colorization
 export GREP_COLOR=32
@@ -35,23 +38,9 @@ PS1="\[\e[1;93m\][\h \W]$\[\e[0m\] "
 # See: http://www.bigsoft.co.uk/blog/2008/04/11/configuring-ls_colors
 export LS_COLORS='no=00:fi=00:di=01;33:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;37:*.tgz=01;37:*.arj=01;37:*.taz=01;37:*.lzh=01;37:*.zip=01;37:*.z=01;37:*.Z=01;37:*.gz=01;37:*.bz2=01;37:*.deb=01;37:*.rpm=01;37:*.jar=01;37:*.jpg=01;35:*.jpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.avi=01;35:*.fli=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.flac=01;35:*.mp3=01;35:*.mpc=01;35:*.ogg=01;35:*.wav=01;35:'
 
-#============================================================================
-# Max out certain limits
-#============================================================================
-ulimit -c unlimited                          # Max out core dump size
-ulimit -v unlimited                          # Max out virtual memory
-{%@@ if profile == "calculon" @@%}
-ulimit -s 65532                              # MacOS has limited stack memory
-{%@@ else @@%}
-ulimit -s unlimited                          # Max out stack memory
-{%@@ endif @@%}
-{%@@ if profile != "cygwin" @@%}
-ulimit -m unlimited                          # Max out memory
-{%@@ endif @@%}
-
-#============================================================================
-# Define aliases and functions for common commands
-#============================================================================
+#==============================================================================
+# %%%%% Personal settings: Basic Linux commands %%%%%
+#==============================================================================
 
 # System name
 SYSTEM=$(uname -s)
@@ -119,6 +108,73 @@ alias tmuxde="tmux detach "
 # Slack aliases
 alias slack="slack 2>/dev/null 1>/dev/null"
 
+#============================================================================
+# %%%%% Personal settings: Git %%%%%
+#============================================================================
+alias clone_gcc="git clone --recurse-submodules git@github.com:geoschem/GCClassic.git"
+alias clone_gchp="git clone --recurse-submodules git@github.com:geoschem/gchp.git"
+alias clone_hco="git clone --recurse-submodules git@github.com:geoschem/hemco.git"
+alias gb="git branch"
+alias gbr="git branch --remote"
+alias gbrnm="git branch --remote --no-merged"
+alias gfp="git fetch -p"
+alias gitc="git -C CodeDir"
+alias gl="git log"
+alias glo="git log --oneline"
+alias glp="git log --pretty=format:'%h : %s' --topo-order --graph"
+alias gk="gitk 2>/dev/null &"
+alias gka="gitk --all 2>/dev/null &"
+alias gkb="gitk 2>/dev/null -b "
+alias gpo="git pull origin"
+alias gui="git gui 2>/dev/null &"
+alias gsu="git submodule update --init --recursive"
+alias update_tags="git tag -l | xargs git tag -d && git fetch -t"
+
+# Git shortcuts for GEOS-Chem Classic
+alias gcc2gc="cd src/GEOS-Chem"
+alias gc2gcc="cd ../.."
+alias gcc2hco="cd src/HEMCO"
+alias hco2gcc="cd ../.."
+alias gck="git -C src/GEOS-Chem checkout"
+alias hck="git -C src/HEMCO checkout"
+alias glog="git -C src/GEOS-Chem log --oneline "
+alias hlog="git -C src/HEMCO log --oneline "
+
+# Git shortcuts for GCHP
+alias gchp2gc="cd src/GCHP_GridComp/GEOSChem_GridComp/geos-chem"
+alias gc2gchp="cd ../../../.."
+alias gchp2hco="cd src/GCHP_GridComp/HEMCO_GridComp/HEMCO"
+alias hco2gchp="cd ../../../.."
+alias gpck="git -C src/GCHP_GridComp/GEOSChem_GridComp/geos-chem checkout "
+alias hpck="git -C src/GCHP_GridComp/HEMCO_GridComp/HEMCO checkout "
+alias gplog="git -C src/GCHP_GridComp/GEOSChem_GridComp/geos-chem log --oneline "
+alias hplog="git -C src/GCHP_GridComp/HEMCO_GridComp/HEMCO log --oneline "
+alias glog="git -C src/GEOS-Chem log --oneline"
+alias gsu="git submodule update --init --recursive"
+alias hplog="git -C src/GCHP_GridComp/HEMCO_GridComp/HEMCO log --oneline"
+
+#==============================================================================
+# %%%%% Personal settings: Tmux %%%%%
+#==============================================================================
+alias tmuxnew="tmux new -s "
+alias tmuxat="tmux a -t "
+alias tmuxde="tmux detach"
+
+#==============================================================================
+# %%%%% Personal settings: Cmake %%%%%
+#==============================================================================
+
+# Aliases for compiling from the run directory
+alias cf="config_gc_from_rundir $@"
+alias bu="build_gc build"
+alias cfd="config_gc_debug_from_rundir $@"
+alias bud="build_gc debug"
+alias mdc="rm -rf build/*; rm -rf debug/*"
+
+#==============================================================================
+# %%%%% Personal settings: KPP %%%%%
+#==============================================================================
+
 {%@@ if profile == "hypnotoad" @@%}
 # For KPP C-I tests in the Docker container
 alias dbkpp="docker build -f ./.ci-pipelines/Dockerfile -t kpp-build ."
@@ -142,99 +198,47 @@ alias kge="cd ${KPP_HOME}/general"
 alias kmo="cd ${KPP_HOME}/models"
 alias ksr="cd ${KPP_HOME}/src"
 alias kut="cd ${KPP_HOME}/util"
+
+# Run KPP tests
 alias kit="${KPP_HOME}/.ci-pipelines/ci-testing-script.sh"
 alias kic="${KPP_HOME}/.ci-pipelines/ci-cleanup-script.sh"
+
+#============================================================================
+# %%%%% Personal settings: AWS cloud %%%%%
+#============================================================================
+
+# AWS login
+alias awsgo="ssh -YA -i ~/.ssh/bmy_aws_keypair.pem "
+
+# Non-recursive
+alias s3cp="aws s3 cp --request-payer=requester "
+alias s3ls="aws s3 ls --request-payer=requester "
+alias s3rm="aws s3 rm --request-payer=requester "
+
+# Recursive
+alias s3cpr="aws s3 cp --request-payer=requester --recursive "
+alias s3lsr="aws s3 ls --request-payer=requester --recursive "
+alias s3rmr="aws s3 rm --request-payer=requester --recursive "
 
 # Alias for sphinx-readthedocs
 alias sph="sphinx-autobuild source build/html"
 
 #============================================================================
-# Define aliases and functions for Git commands
+# %%%%% Personal settings: Harvard logins %%%%%
 #============================================================================
-alias gui="git gui 2>/dev/null &"
-alias gk="gitk 2>/dev/null &"
-alias gka="gitk --all 2>/dev/null &"
-alias gpo="git pull origin"
-alias gl="git log"
-alias glo="git log --oneline"
-alias glp="git log --pretty=format:'%h : %s' --topo-order --graph"
-alias update_tags="git tag -l | xargs git tag -d && git fetch -t"
 
-# Git aliases for GEOS-Chem
-#source /etc/bash_completion.d/git
-alias clone_gcc="git clone --recurse-submodules git@github.com:geoschem/GCClassic.git"
-alias clone_gchp="git clone --recurse-submodules git@github.com:geoschem/gchp.git"
-alias clone_hco="git clone --recurse-submodules git@github.com:geoschem:hemco.git"
-alias gitc="git -C CodeDir"
-alias glog="git -C src/GEOS-Chem log --oneline"
-alias gsu="git submodule update --init --recursive"
-alias hlog="git -C src/HEMCO log --oneline"
-alias hplog="git -C src/GCHP_GridComp/HEMCO_GridComp/HEMCO log --oneline"
+# Log directly into holyjacob01
+# NOTE: Hostnames are defined in .ssh/config
+alias hj1="ssh holyjacob01_rclogin"         # Via round-robin login node
+alias hj11="ssh holyjacob01_holylogin01"    # Via holylogin01 login node
+alias hj12="ssh holyjacob01_holylogin02"    # Via holylogin02 login node
+alias hj13="ssh holyjacob01_holylogin03"    # Via holylogin03 login node
 
-{%@@ if profile == "bender" @@%}
-#============================================================================
-# Compiler settings (Linux)
-#============================================================================
-export CC=gcc
-export CXX=g++
-export FC=gfortran
-export F77=gfortran
-{%@@ elif profile == "calculon" @@%}
-#============================================================================
-# Compiler settings (MacOS)
-#
-# NOTE: MacOSX installs Clang as /usr/bin/gcc, so we have to manually
-# force reference to gcc-11, g++-11, and gfortran-11, which HomeBrew
-# installs to /usr/local/bin.  (bmy, 10/28/21)
-#============================================================================
-alias gcc=gcc-11
-alias g++=g++-11
-alias gfortran=gfortran-11
-export CC=gcc
-export CXX=g++-11
-export FC=gfortran-11
-export F77=gfortran-11
-
-{%@@ elif profile == "hypnotoad" @@%}
-#============================================================================
-# Compiler settings (Linux)
-#============================================================================
-export CC=gcc
-export CXX=g++
-export FC=gfortran
-export F77=gfortran
-
-##============================================================================
-## Ruby & Jekyll settings
-##
-## Manjaro : https://wiki.archlinux.org/index.php/Ruby
-## Ubuntu  : https://jekyllrb.com/docs/installation/ubuntu/
-##============================================================================
-
-# Jekyll command
-alias jserve="bundle exec jekyll serve"
-{%@@ elif profile == "zoidberg" @@%}
-#============================================================================
-# Compiler settings (Linux)
-#============================================================================
-export CC=gcc
-export CXX=g++
-export FC=gfortran
-export F77=gfortran
-
-##============================================================================
-## Ruby & Jekyll settings
-##
-## Manjaro : https://wiki.archlinux.org/index.php/Ruby
-## Ubuntu  : https://jekyllrb.com/docs/installation/ubuntu/
-##============================================================================
-
-# Jekyll command
-alias jserve="bundle exec jekyll serve"
-{%@@ endif @@%}
+# Log into FASRC round-robin login nodes
+alias rcgo="ssh ryantosca@login.rc.fas.harvard.edu"
 
 #============================================================================
-# Python settings
+# %%%%% Personal settings: Python %%%%%
 #============================================================================
 if [[ "x${PYTHONPATH}" == "x" ]]; then
 
@@ -255,31 +259,83 @@ if [[ "x${PYTHONPATH}" == "x" ]]; then
     export XDG_RUNTIME_DIR=/tmp/runtime-${USER}
 fi
 
+{%@@ if profile == "bender" @@%}
 #============================================================================
-# Personal settings: Harvard logins
+# %%%%% Personal settings: Compilers (Linux) %%%%%
+#============================================================================
+export CC=gcc
+export CXX=g++
+export FC=gfortran
+export F77=gfortran
+{%@@ elif profile == "calculon" @@%}
+#============================================================================
+# %%%%% Personal settings: Compilers (MacOS) %%%%%
+#
+# NOTE: MacOSX installs Clang as /usr/bin/gcc, so we have to manually
+# force reference to gcc-13, g++-13, and gfortran-13, which HomeBrew
+# installs to /usr/local/bin.
+#============================================================================
+alias gcc=gcc-13
+alias g++=g++-13
+alias gfortran=gfortran-13
+export CC=gcc
+export CXX=g++-13
+export FC=gfortran-13
+export F77=gfortran-13
+
+{%@@ elif profile == "hypnotoad" @@%}
+#============================================================================
+# %%%%% Personal settings: Compilers (Linux) %%%%%
+#============================================================================
+export CC=gcc
+export CXX=g++
+export FC=gfortran
+export F77=gfortran
+
+#============================================================================
+# %%%%% Personal settings: Ruby & Jekyll %%%%%
+#
+# For more info, see https://wiki.archlinux.org/index.php/Ruby
 #============================================================================
 
-# Log directly into holyjacob01
-# NOTE: Hostnames are defined in .ssh/config
-alias hj1="ssh holyjacob01_rclogin"         # Via round-robin login node
-alias hj11="ssh holyjacob01_holylogin01"    # Via holylogin01 login node
-alias hj12="ssh holyjacob01_holylogin02"    # Via holylogin02 login node
-alias hj13="ssh holyjacob01_holylogin03"    # Via holylogin03 login node
-
-# Log into FASRC round-robin login nodes
-alias rcgo="ssh ryantosca@login.rc.fas.harvard.edu"
+# Jekyll command
+alias jserve="bundle exec jekyll serve"
+{%@@ elif profile == "zoidberg" @@%}
+#============================================================================
+# %%%%% Personal settings: Compilers (Linux)
+#============================================================================
+export CC=gcc
+export CXX=g++
+export FC=gfortran
+export F77=gfortran
 
 #============================================================================
-# Personal settings: AWS cloud
+# %%%%% Personal settings: Ruby & Jekyll %%%%%
+#
+# For more info, see https://jekyllrb.com/docs/installation/ubuntu/
 #============================================================================
 
-# Amazon S3 commands
-alias s3cp="aws s3 cp -request-payer=requester "
-alias s3ls="aws s3 ls -request-payer=requester "
-alias s3rm="aws s3 rm -request-payer=requester "
+# Jekyll command
+alias jserve="bundle exec jekyll serve"
+{%@@ endif @@%}
 
 #============================================================================
-# Personal settings: Dotdrop (AUR package) for managing system files
+# %%%%% Personal settings: Max out certain limits %%%%%
+#============================================================================
+ulimit -c unlimited                          # Max out core dump size
+ulimit -v unlimited                          # Max out virtual memory
+{%@@ if profile == "calculon" @@%}
+ulimit -s 65532                              # MacOS has limited stack memory
+{%@@ else @@%}
+ulimit -s unlimited                          # Max out stack memory
+{%@@ endif @@%}
+{%@@ if profile != "cygwin" @@%}
+ulimit -m unlimited                          # Max out memory
+{%@@ endif @@%}
+
+#============================================================================
+# %%%%% Personal settings: Dotdrop (AUR) %%%%%
 #============================================================================
 alias dotdrop="~/repos/dotfiles/dotdrop.sh --cfg=~/repos/dotfiles/config.yaml"
+
 #EOC

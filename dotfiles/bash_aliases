@@ -29,7 +29,17 @@
 #==============================================================================
 
 # Settings for colorization
+{%@@ if profile == "bender" @@%}
 export GREP_COLOR=32
+{%@@ elif profile == "calculon" @@%}
+export GREP_COLOR=32
+{%@@ elif profile == "cygwin" @@%}
+export GREP_COLOR=32
+{%@@ elif profile == "hypnotoad" @@%}
+export GREP_COLOR=mt-32
+{%@@ elif profile == "zoidberg" @@%}
+export GREP_COLOR=32
+{%@@ endif @@%}
 
 # Override the system prompt (93 = yellow)
 PS1="\[\e[1;93m\][\h \W]$\[\e[0m\] "

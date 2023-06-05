@@ -72,7 +72,7 @@ PATH=~/bin:$(command -p getconf PATH):/sbin:/usr/sbin:/usr/local/bin:/usr/local/
 export KPP_HOME="${HOME}/work/KPP3"
 
 # Ruby Gems folder
-export GEM_HOME="${HOME}/repos/gems/"
+export GEM_HOME="${HOME}/.local/share/gem/ruby/3.0.0"
 
 # Define PATH
 PATH=~/bin:$(command -p getconf PATH):/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin:${GEM_HOME}/bin:${PATH}:${KPP_HOME}/bin

@@ -98,7 +98,7 @@ profiles:
     - f_bash_logout
     - f_bash_profile
     - f_bashrc
-    - f condarc
+    - f_condarc
     - f_config
     - f_dir_colors
     - f_emacs_aliases

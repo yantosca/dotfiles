@@ -104,6 +104,14 @@ fi
 unset __conda_setup
 # <<< conda init <<<
 {%@@ elif profile =="calculon" @@%}
+#=============================================================================
+# Rust initialization
+#=============================================================================
+. "${HOME}/.cargo/env"
+
+#=============================================================================
+# Miniconda initialization
+#=============================================================================
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/Users/bobyantosca/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"

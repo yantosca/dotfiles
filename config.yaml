@@ -3,139 +3,143 @@ config:
   create: true
   dotpath: dotfiles
 dotfiles:
+  f_barrier.sgc:
+    src: barrier.sgc
+    dst: ~/.barrier.sgc
+    chmod: '700'
+  f_bash_aliases:
+    src: bash_aliases
+    dst: ~/.bash_aliases
+  f_bash_functions:
+    src: bash_functions
+    dst: ~/.bash_functions
+  f_bash_logout:
+    src: bash_logout
+    dst: ~/.bash_logout
   f_bash_profile:
     src: bash_profile
     dst: ~/.bash_profile
   f_bashrc:
     src: bashrc
     dst: ~/.bashrc
-  f_bash_aliases:
-    src: bash_aliases
-    dst: ~/.bash_aliases
-  f_bash_logout:
-    src: bash_logout
-    dst: ~/.bash_logout
   f_condarc:
     src: condarc
     dst: ~/.condarc
+  f_config:
+    src: ssh/config
+    dst: ~/.ssh/config
   f_dir_colors:
     src: dir_colors
     dst: ~/.dir_colors
   f_emacs_aliases:
     src: emacs_aliases
     dst: ~/.emacs_aliases
+  f_emacs-config.el:
+    src: emacs.d/emacs-config.el
+    dst: ~/.emacs.d/emacs-config.el
+  f_emacs-config.org:
+    src: emacs.d/emacs-config.org
+    dst: ~/.emacs.d/emacs-config.org
   f_gitconfig:
     src: gitconfig
     dst: ~/.gitconfig
+  f_init.el:
+    src: emacs.d/init.el
+    dst: ~/.emacs.d/init.el
+  f_minttyrc:
+    src: minttyrc
+    dst: ~/.minttyrc
   f_tmux.conf:
     src: tmux.conf
     dst: ~/.tmux.conf
   f_xresources:
     src: Xresources
     dst: ~/.Xresources
-  f_init.el:
-    src: emacs.d/init.el
-    dst: ~/.emacs.d/init.el
-  f_emacs-config.org:
-    src: emacs.d/emacs-config.org
-    dst: ~/.emacs.d/emacs-config.org
-  f_emacs-config.el:
-    src: emacs.d/emacs-config.el
-    dst: ~/.emacs.d/emacs-config.el
-  f_bash_functions:
-    src: bash_functions
-    dst: ~/.bash_functions
-  f_minttyrc:
-    src: minttyrc
-    dst: ~/.minttyrc
-  f_config:
-    src: ssh/config
-    dst: ~/.ssh/config
-  f_barrier.sgc:
-    src: barrier.sgc
-    dst: ~/.barrier.sgc
-    chmod: '700'
 profiles:
   hypnotoad:
     dotfiles:
+    - f_bash_aliases
+    - f_bash_functions
+    - f_bash_logout
     - f_bash_profile
     - f_bashrc
-    - f_bash_aliases
-    - f_bash_logout
     - f_condarc
+    - f_config
     - f_dir_colors
     - f_emacs_aliases
+    - f_emacs-config.el
+    - f_emacs-config.org
     - f_gitconfig
+    - f_init.el
     - f_tmux.conf
     - f_xresources
-    - f_init.el
-    - f_emacs-config.org
-    - f_emacs-config.el
-    - f_bash_functions
-    - f_config
   zoidberg:
     dotfiles:
+    - f_barrier.sgc
+    - f_bash_aliases
+    - f bash_functions
+    - f_bash_logout
     - f_bash_profile
     - f_bashrc
-    - f_bash_aliases
-    - f_bash_logout
-    - f_config
     - f_condarc
+    - f_config
     - f_dir_colors
     - f_emacs_aliases
+    - f_emacs-config.el
+    - f_emacs-config.org
     - f_gitconfig
+    - f_init.el
     - f_tmux.conf
     - f_xresources
-    - f_init.el
-    - f_emacs-config.org
-    - f_emacs-config.el
-    - f_bash_functions
-    - f_barrier.sgc
   calculon:
     dotfiles:
+    - f_bash_aliases
+    - f_bash_functions
+    - f_bash_logout
     - f_bash_profile
     - f_bashrc
-    - f_bash_aliases
-    - f_bash_logout
+    - f condarc
     - f_config
     - f_dir_colors
     - f_emacs_aliases
+    - f_emacs-config.el
+    - f_emacs-config.org
     - f_gitconfig
+    - f_init.el
     - f_tmux.conf
     - f_xresources
-    - f_init.el
-    - f_emacs-config.org
-    - f_emacs-config.el
   bender:
     dotfiles:
+    - f_bash_aliases
+    - f_bash_functions
+    - f_bash_logout
     - f_bash_profile
     - f_bashrc
-    - f_bash_aliases
-    - f_bash_logout
     - f_condarc
     - f_config
     - f_dir_colors
     - f_emacs_aliases
+    - f_emacs-config.el
+    - f_emacs-config.org
     - f_gitconfig
+    - f_init.el
     - f_tmux.conf
     - f_xresources
-    - f_init.el
-    - f_emacs-config.org
-    - f_emacs-config.el
   cygwin:
     dotfiles:
+    - f_bash_aliases
+    - f_bash_functions
+    - f_bash_logout
     - f_bash_profile
     - f_bashrc
-    - f_bash_aliases
-    - f_bash_logout
+    - f_condarc
     - f_config
     - f_dir_colors
     - f_emacs_aliases
+    - f_emacs-config.el
+    - f_emacs-config.org
     - f_gitconfig
+    - f_init.el
+    - f_minttyrc
     - f_tmux.conf
     - f_xresources
-    - f_init.el
-    - f_emacs-config.org
-    - f_emacs-config.el
-    - f_bash_functions
-    - f_minttyrc

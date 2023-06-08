@@ -77,7 +77,7 @@ profiles:
     dotfiles:
     - f_barrier.sgc
     - f_bash_aliases
-    - f bash_functions
+    - f_bash_functions
     - f_bash_logout
     - f_bash_profile
     - f_bashrc

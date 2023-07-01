@@ -127,20 +127,25 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 {%@@ elif profile =="hypnotoad" @@%}
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/bob/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+#=============================================================================
+# Minimamba initialization
+#=============================================================================
+# >>> mamba initialize >>>
+# !! Contents within this block are managed by 'mamba init' !!
+export MAMBA_EXE="/home/bob/bin/micromamba";
+export MAMBA_ROOT_PREFIX="/home/bob/micromamba";
+__mamba_setup="$("$MAMBA_EXE" shell hook --shell bash --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
 if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
+    eval "$__mamba_setup"
 else
-    if [ -f "/home/bob/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/bob/miniconda3/etc/profile.d/conda.sh"
+    if [ -f "/home/bob/micromamba/etc/profile.d/micromamba.sh" ]; then
+        . "/home/bob/micromamba/etc/profile.d/micromamba.sh"
     else
-        export PATH="/home/bob/miniconda3/bin:$PATH"
+        export  PATH="/home/bob/micromamba/bin:$PATH"  # extra space after export prevents interference from conda init
     fi
 fi
-unset __conda_setup
-# <<< conda initialize <<<
+unset __mamba_setup
+# <<< mamba initialize <<<
 {%@@ elif profile =="zoidberg" @@%}
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!

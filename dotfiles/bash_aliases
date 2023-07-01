@@ -189,6 +189,7 @@ alias mdc="rm -rf build/*; rm -rf debug/*"
 # For KPP C-I tests in the Docker container
 alias dbkpp="docker build -f ./.ci-pipelines/Dockerfile -t kpp-build ."
 alias drkpp="docker run -it --entrypoint /bin/bash kpp-build"
+export KPP_FLEX_LIB_DIR="/usr/lib64"
 {%@@ elif profile == "calculon" @@%}
 # Path o flex library for KPP (installed via Homebrew)
 export KPP_FLEX_LIB_DIR=/usr/local/Cellar/flex/2.6.4_2/lib

@@ -253,9 +253,16 @@ alias rcgo="ssh ryantosca@login.rc.fas.harvard.edu"
 #============================================================================
 if [[ "x${PYTHONPATH}" == "x" ]]; then
 
-    # Select Bob Y's custom environment (matplotlib 3)
-    alias sab="conda activate gcpy_env"
-    alias sdb="conda deactivate"
+{%@@ if profile == "calculon" @@%}
+    # We now use micromamba instead of conda
+    alias mamba="micromamba"
+{%@@ elif profile == "hypnotoad" @@%}
+    # We now use micromamba instead of conda
+    alias mamba="micromamba"
+{%@@ elif profile == "zoidberg" @@%}
+    # We now use micromamba instead of conda
+    alias mamba="micromamba"
+{%@@ endif @@%}
 
     # Add Python repos to $PYTHONPATH
     export PYTHONPATH=${PYTHONPATH}:${HOME}/work/gcpy

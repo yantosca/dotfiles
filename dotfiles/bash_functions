@@ -249,14 +249,24 @@ function latex2rst() {
     pandoc -f latex -t rest ${base}.mw -o ${base}.rst
 }
 
+#============================================================================
+#  %%%%% Bash functions logging into Cannon %%%%%
+#============================================================================
+
+function rcgo() {
+    ##### Log into a holylogin node"
+    ssh "holylogin0${1}"
+}
+
+
 #==============================================================================
 # %%%%% Bash functions for miscellaneous tasks %%%%%
 #==============================================================================
 
 function awsagent() {
-  ##### Add bmy_aws_keypair.pem to the ssh-agent for Amazon EC2 cloud #####
-  eval $(ssh-agent -s)
-  ssh-add ~/.ssh/bmy_aws_keypair.pem
+    ##### Add bmy_aws_keypair.pem to the ssh-agent for Amazon EC2 cloud #####
+    eval $(  ssh-agent -s)
+    ssh-add ~/.ssh/bmy_aws_keypair.pem
 }
 
 function dos2unix() {

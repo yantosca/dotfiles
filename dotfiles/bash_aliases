@@ -238,13 +238,6 @@ alias sph="sphinx-autobuild source build/html"
 # %%%%% Personal settings: Harvard logins %%%%%
 #============================================================================
 
-# Log directly into holyjacob01
-# NOTE: Hostnames are defined in .ssh/config
-alias hj1="ssh holyjacob01_rclogin"         # Via round-robin login node
-alias hj11="ssh holyjacob01_holylogin01"    # Via holylogin01 login node
-alias hj12="ssh holyjacob01_holylogin02"    # Via holylogin02 login node
-alias hj13="ssh holyjacob01_holylogin03"    # Via holylogin03 login node
-
 # Log into FASRC round-robin login nodes
 alias rcgo="ssh ryantosca@login.rc.fas.harvard.edu"
 

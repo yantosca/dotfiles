@@ -35,31 +35,7 @@ Host holylogin03
   Hostname holylogin03.rc.fas.harvard.edu
   User ryantosca
 
-# Holyjacob01 node info
-Host holyjacob01
-  HostName holyjacob01.rc.fas.harvard.edu
-  User ryantosca
-
-# Log into holyjacob via the round-robin
-Host holyjacob01_rclogin
-  HostName holyjacob01
-  ProxyJump rclogin
-  User ryantosca
-
-# Log into holyjacob01 thru holylogin01
-Host holyjacob01_holylogin01
-  Hostname holyjacob01
-  ProxyJump holylogin01
-  User ryantosca
-
-# Log into holyjacob01 thru holylogin02
-Host holyjacob01_holylogin02
-  Hostname holyjacob01
-  ProxyJump holylogin02
-  User ryantosca
-
-# Log into holyjacob01 thru holylogin03
-Host holyjacob01_holylogin03
-  Hostname holyjacob01
-  ProxyJump holylogin03
+# Direct to holylogin03 login node
+Host holylogin04
+  Hostname holylogin03.rc.fas.harvard.edu
   User ryantosca

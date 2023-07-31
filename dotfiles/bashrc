@@ -34,8 +34,8 @@ cd ~                                              # Start in home directory
 #=============================================================================
 # Load important aliases and customizations
 #=============================================================================
-[[ -f ~/.bash_aliases   ]] && . ~/.bash_aliases
 [[ -f ~/.bash_functions ]] && . ~/.bash_functions
+[[ -f ~/.bash_aliases   ]] && . ~/.bash_aliases
 
 ##############################################################################
 #####  Add your local SSH private keys to the SSH agent and start it     #####
@@ -47,7 +47,7 @@ cd ~                                              # Start in home directory
 # then add the private key that is stored in your AWS account here.
 # Add as many private keys as you like.  Private keys should be stored
 # in the ~/.ssh folder.
-key_1=~/.ssh/bmy_aws_keypair.pem
+#key_1=~/.ssh/bmy_aws_keypair.pem
 key_2=~/.ssh/id_rsa_20181218
 
 # Start the ssh-agent (if necessary)
@@ -70,13 +70,13 @@ if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
 
     # Agent is not running, so start it
     agent_start
-    ssh-add ${key_1}
+    #ssh-add ${key_1}
     ssh-add ${key_2}
     
 elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
 
     # Agent is running, so add keys
-    ssh-add ${key_1}
+    #ssh-add ${key_1}
     ssh-add ${key_2}
 
 fi

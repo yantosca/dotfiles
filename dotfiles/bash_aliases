@@ -1,4 +1,4 @@
-#----------------------------------------------------------------------------
+g#----------------------------------------------------------------------------
 #BOP
 #
 # !MODULE: .bash_aliases
@@ -241,9 +241,9 @@ alias sph="sphinx-autobuild source build/html"
 # NOTE: Host parameters are defined in .ssh/config
 alias rcgo="ssh rclogin"
 alias hl1="ssh holylogin01"
-alias hl2="ssh holylogin01"
-alias hl3="ssh holylogin01"
-alias hl4="ssh holylogin01"
+alias hl2="ssh holylogin02"
+alias hl3="ssh holylogin03"
+alias hl4="ssh holylogin04"
 
 #============================================================================
 # %%%%% Personal settings: Python %%%%%

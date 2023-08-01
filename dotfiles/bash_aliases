@@ -238,8 +238,12 @@ alias sph="sphinx-autobuild source build/html"
 # %%%%% Personal settings: Harvard logins %%%%%
 #============================================================================
 
-# Log into FASRC round-robin login nodes
-alias rcgo="ssh ryantosca@login.rc.fas.harvard.edu"
+# NOTE: Host parameters are defined in .ssh/config
+alias rcgo="ssh rclogin"
+alias hl1="ssh holylogin01"
+alias hl2="ssh holylogin01"
+alias hl3="ssh holylogin01"
+alias hl4="ssh holylogin01"
 
 #============================================================================
 # %%%%% Personal settings: Python %%%%%

@@ -130,28 +130,30 @@ unset __mamba_setup
 # <<< mamba initialize <<<
 {%@@ elif profile =="hypnotoad" @@%}
 #=============================================================================
-# Micromamba initialization
+# Mambaforge initialization
 #=============================================================================
-# >>> mamba initialize >>>
-# !! Contents within this block are managed by 'mamba init' !!
-export MAMBA_EXE="/home/bob/bin/micromamba";
-export MAMBA_ROOT_PREFIX="/home/bob/micromamba";
-__mamba_setup="$("$MAMBA_EXE" shell hook --shell bash --root-prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/bob/mambaforge/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
-    eval "$__mamba_setup"
+    eval "$__conda_setup"
 else
-    if [ -f "/home/bob/micromamba/etc/profile.d/micromamba.sh" ]; then
-        . "/home/bob/micromamba/etc/profile.d/micromamba.sh"
+    if [ -f "/home/bob/mambaforge/etc/profile.d/conda.sh" ]; then
+        . "/home/bob/mambaforge/etc/profile.d/conda.sh"
     else
-        export  PATH="/home/bob/micromamba/bin:$PATH"  # extra space after export prevents interference from conda init
+        export PATH="/home/bob/mambaforge/bin:$PATH"
     fi
 fi
-unset __mamba_setup
-#=============================================================================
-# Micromamba initialization
-#=============================================================================
-# <<< mamba initialize <<<
+unset __conda_setup
+
+if [ -f "/home/bob/mambaforge/etc/profile.d/mamba.sh" ]; then
+    . "/home/bob/mambaforge/etc/profile.d/mamba.sh"
+fi
+# <<< conda initialize <<<
 {%@@ elif profile =="zoidberg" @@%}
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/bob/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
@@ -162,4 +164,5 @@ else
     fi
 fi
 unset __conda_setup
+# <<< conda initialize <<<
 {%@@ endif @@%}

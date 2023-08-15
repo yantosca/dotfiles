@@ -250,17 +250,6 @@ alias hl4="ssh holylogin04"
 #============================================================================
 if [[ "x${PYTHONPATH}" == "x" ]]; then
 
-{%@@ if profile == "calculon" @@%}
-    # We now use micromamba instead of conda
-    alias mamba="micromamba"
-{%@@ elif profile == "hypnotoad" @@%}
-    # We now use micromamba instead of conda
-    alias mamba="micromamba"
-{%@@ elif profile == "zoidberg" @@%}
-    # We now use micromamba instead of conda
-    alias mamba="micromamba"
-{%@@ endif @@%}
-
     # Add Python repos to $PYTHONPATH
     export PYTHONPATH=${PYTHONPATH}:${HOME}/work/gcpy
 

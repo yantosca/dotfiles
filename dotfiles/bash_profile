@@ -10,9 +10,6 @@
 #============================================================================
 [[ -f ~/.bashrc ]] && . ~/.bashrc
 
-# Load the X11 settings in ~/.Xresources
-[[ -f ~/.Xresources ]] && xrdb ~/.Xresources
-
 {%@@ if profile == "bender" @@%}
 #============================================================================
 # Add folders containing executables to $PATH (edit as necessary)

@@ -251,16 +251,19 @@ alias hl4="ssh holylogin04"
 if [[ "x${PYTHONPATH}" == "x" ]]; then
 
     # Add Python repos to $PYTHONPATH
-    export PYTHONPATH=${PYTHONPATH}:${HOME}/work/gcpy
+    export PYTHONPATH="${PYTHONPATH}:${HOME}/work/gcpy"
 
     # Ignore warnings about deprecated options
-    export PYTHONWARNINGS=ignore::DeprecationWarning
+    export PYTHONWARNINGS="ignore::DeprecationWarning"
 
     # Settings for Python packages
-    export PYLINTRC=~/.pylint.rc
+    export PYLINTRC="~/.pylint.rc"
 
     # Temporary Python folder (avoids warning messages)
-    export XDG_RUNTIME_DIR=/tmp/runtime-${USER}
+    export XDG_RUNTIME_DIR="/tmp/runtime-${USER}"
+
+    # Select the x11 backend for Matplotlib
+    export MPLBACKEND="tkagg"
 fi
 
 {%@@ if profile == "bender" @@%}

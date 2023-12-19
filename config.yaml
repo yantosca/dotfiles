@@ -55,6 +55,10 @@ dotfiles:
   f_xresources:
     src: Xresources
     dst: ~/.Xresources
+  f_c5.sh:
+    src: bin/c5.sh
+    dst: ~/bin/c5.sh
+    chmod: '700'
 profiles:
   hypnotoad:
     dotfiles:
@@ -91,6 +95,7 @@ profiles:
     - f_init.el
     - f_tmux.conf
     - f_xresources
+    - f_c5.sh
   calculon:
     dotfiles:
     - f_bash_aliases

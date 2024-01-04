@@ -6,7 +6,7 @@ dotfiles:
   f_barrier.sgc:
     src: barrier.sgc
     dst: ~/.barrier.sgc
-    chmod: '700'
+    chmod: '644'
   f_bash_aliases:
     src: bash_aliases
     dst: ~/.bash_aliases

@@ -64,10 +64,12 @@ XTerm.*.faceSize:          12
 {%@@ endif @@%}
 
 ! Keybindings
-XTerm.vt100.translations: #override \n\
-    Ctrl Shift <Key>N: scroll-back(1, halfpage) \n\
-    Ctrl Shift <Key>T: scroll-forw(1, halfpage) \n\
-    Ctrl Shift <Key>C: copy-selection(CLIPBOARD) \n\
-    Ctrl Shift <Key>V: insert-selection(CLIPBOARD)
-    Ctrl Shift <Key>H: set-altscreen(toggle)
+*.VT100.translations: #override \n\
+    Ctrl Shift <Key> N: scroll-back(1, halfpage) \n\
+    Ctrl Shift <Key> T: scroll-forw(1, halfpage) \n\
+    Ctrl Shift <Key> C: copy-selection(CLIPBOARD) \n\
+    Ctrl Shift <Key> V: insert-selection(CLIPBOARD) \n\
+    Ctrl Shift <Key> H: set-altscreen(toggle) \n\
+    Ctrl <KeyPress> Insert: copy-selection(CLIPBOARD) \n\
+    Shift <KeyPress> Insert: insert-selection(CLIPBOARD)
 !EOC

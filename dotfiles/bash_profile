@@ -90,7 +90,7 @@ PATH=~/bin:~/.local/bin:$(command -p getconf PATH):/sbin:/usr/sbin:/usr/local/bi
 #============================================================================
 
 # Define PATH
-PATH=~/bin:~/.local/bin:$(command -p getconf PATH):/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin:${RUBY_BIN}:${PATH}:${KPP_HOME}/bin
+PATH=~/bin:~/.local/bin:$(command -p getconf PATH):/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin:${RUBY_BIN}:${PATH}:${KPP_HOME}/bin:~/repos/bashdatacatalog/bin
 
 # Also set the language to be persistent
 export LANG=en_US.UTF-8

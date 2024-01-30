@@ -251,7 +251,7 @@ alias hl4="ssh holylogin04"
 if [[ "x${PYTHONPATH}" == "x" ]]; then
 
     # Add Python repos to $PYTHONPATH
-    export PYTHONPATH="${PYTHONPATH}:${HOME}/work/gcpy"
+    export PYTHONPATH="${PYTHONPATH}:${HOME}/repos/gcpy"
 
     # Ignore warnings about deprecated options
     export PYTHONWARNINGS="ignore::DeprecationWarning"

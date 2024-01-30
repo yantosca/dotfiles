@@ -36,7 +36,7 @@ export KPP_HOME
 #============================================================================
 
 # Add KPP folder to tail of $PATH and define KPP compiler
-export KPP_HOME="${HOME}/work/KPP3"
+export KPP_HOME="${HOME}/repos/KPP3"
 export PATH="${PATH}:${KPP_HOME}/bin"
 
 # Define PATH
@@ -69,7 +69,7 @@ PATH=~/bin:$(command -p getconf PATH):/sbin:/usr/sbin:/usr/local/bin:/usr/local/
 #============================================================================
 
 # KPP settings
-export KPP_HOME="${HOME}/work/KPP3"
+export KPP_HOME="${HOME}/repos/KPP3"
 
 # Ruby Gems folder
 export GEM_HOME="${HOME}/.local/share/gem/ruby/3.0.0"
@@ -88,6 +88,9 @@ PATH=~/bin:~/.local/bin:$(command -p getconf PATH):/sbin:/usr/sbin:/usr/local/bi
 #   appended, reset, appended again and ends up in such a jumbled order.
 #   The duplicates get removed, preserving my preferred order.
 #============================================================================
+
+# KPP settings
+export KPP_HOME="${HOME}/repos/KPP3"
 
 # Define PATH
 PATH=~/bin:~/.local/bin:$(command -p getconf PATH):/sbin:/usr/sbin:/usr/local/bin:/usr/local/sbin:${RUBY_BIN}:${PATH}:${KPP_HOME}/bin:~/repos/bashdatacatalog/bin

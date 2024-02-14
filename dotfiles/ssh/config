@@ -35,7 +35,7 @@ Host holylogin03
   Hostname holylogin03.rc.fas.harvard.edu
   User ryantosca
 
-# Direct to holylogin03 login node
+# Direct to holylogin04 login node
 Host holylogin04
-  Hostname holylogin03.rc.fas.harvard.edu
+  Hostname holylogin04.rc.fas.harvard.edu
   User ryantosca

@@ -51,8 +51,7 @@ function heads() {
     for s in $submods; do
 	submod=${s/\[submodule/}
 	submod=${submod/\]/}
-	submod=${submod/\"/}
-	submod=${submod/\"/}
+	submod=${submod//\"/}
 	if [[ "x$submod" != "x" ]]; then
 	    if [[ -d $submod ]]; then
 		head=$(git -C $submod log --oneline -1)

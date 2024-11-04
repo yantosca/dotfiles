@@ -21,21 +21,21 @@ Host rclogin
   User ryantosca
 
 # Direct to holylogin01 login node
-Host holylogin01
-  Hostname holylogin01.rc.fas.harvard.edu
+Host holylogin05
+  Hostname holylogin05.rc.fas.harvard.edu
+  User ryantosca
+
+# Direct to holylogin01 login node
+Host holylogin06
+  Hostname holylogin06.rc.fas.harvard.edu
   User ryantosca
 
 # Direct to holylogin02 login node
-Host holylogin02
-  Hostname holylogin02.rc.fas.harvard.edu
+Host holylogin07
+  Hostname holylogin07.rc.fas.harvard.edu
   User ryantosca
 
 # Direct to holylogin03 login node
-Host holylogin03
-  Hostname holylogin03.rc.fas.harvard.edu
-  User ryantosca
-
-# Direct to holylogin04 login node
-Host holylogin04
-  Hostname holylogin04.rc.fas.harvard.edu
+Host holylogin08
+  Hostname holylogin08.rc.fas.harvard.edu
   User ryantosca

@@ -286,13 +286,13 @@ export F77=gfortran
 # force reference to gcc-13, g++-13, and gfortran-13, which HomeBrew
 # installs to /usr/local/bin.
 #============================================================================
-alias gcc=gcc-13
-alias g++=g++-13
-alias gfortran=gfortran-13
+alias gcc=gcc-14
+alias g++=g++-14
+alias gfortran=gfortran-14
 export CC=gcc
-export CXX=g++-13
-export FC=gfortran-13
-export F77=gfortran-13
+export CXX=g++-14
+export FC=gfortran-14
+export F77=gfortran-14
 
 {%@@ elif profile == "hypnotoad" @@%}
 #============================================================================

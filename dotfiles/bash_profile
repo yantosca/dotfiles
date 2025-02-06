@@ -41,7 +41,8 @@ export PATH="${PATH}:${KPP_HOME}/bin"
 
 # Define PATH
 # Add /usr/local/sbin to head of $PATH (to avoid warnings)
-PATH=/usr/local/sbin/:${HOME}/bin:$(command -p getconf PATH):/usr/local/bin:/usr/local/sbin:${HOME}/miniconda3/bin:${PATH}:${KPP_HOME}/bin
+# Add /usr/local/bin before /usr/bin so that GCC won't pick up Clang
+PATH=/usr/local/sbin/:/usr/local/bin:${HOME}/bin:$(command -p getconf PATH):/usr/local/sbin:${HOME}/miniconda3/bin:${PATH}:${KPP_HOME}/bin
 
 {%@@ elif profile == "cygwin" @@%}
 #============================================================================

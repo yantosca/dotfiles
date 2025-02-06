@@ -3,7 +3,7 @@
 	email = yantosca@seas.harvard.edu
 [gui]
 	fontui = -family \"DejaVu Sans\" -size 12 -weight normal -slant roman -underline 0 -overstrike 0
-	fontdiff = -family \"DejaVu Sans Mono\" -size 11 -weight normal -slant roman -underline 0 -overstrike 0
+	fontdiff = -family \"Source Code Pro\" -size 12 -weight normal -slant roman -underline 0 -overstrike 0
 [init]
 	defaultBranch = main
 [core]

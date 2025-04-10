@@ -20,6 +20,16 @@ Host rclogin
   HostName login.rc.fas.harvard.edu
   User ryantosca
 
+# Round-robin login node
+Host boslogin
+  HostName boslogin.rc.fas.harvard.edu
+  User ryantosca
+
+# Round-robin login node
+Host holylogin
+  HostName holylogin.rc.fas.harvard.edu
+  User ryantosca
+
 # Direct to holylogin01 login node
 Host holylogin05
   Hostname holylogin05.rc.fas.harvard.edu

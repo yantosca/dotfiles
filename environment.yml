@@ -3,16 +3,16 @@ channels:
   - conda-forge
   - nodefaults
 dependencies:
-  - python=3.9
+  - python=3.13
   - Jinja2
   - docopt
   - ruamel.yaml
   - python-magic
   - packaging
+  - pip
   - requests
   - toml
   - distro
   - tomli
-  - pip
   - pip:
-      tomli_w
+    - tomli_W

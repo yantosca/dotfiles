@@ -11,7 +11,7 @@ tags="ResourceType=instance,Tags=[${tags}]"
 
 # Almost never change, leave as-is
 aws ec2 run-instances                                         \
-    --image-id              ami-09b9b4f0153c3c1e4             \
+    --image-id              ami-0d6650ce3c7bd3658             \
     --key-name              bmy_aws_keypair                   \
     --security-groups       default-gc-cloud-sg               \
     --instance-type         c5.${instnum}xlarge               \

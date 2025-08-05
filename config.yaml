@@ -34,9 +34,6 @@ dotfiles:
   f_emacs_aliases:
     src: emacs_aliases
     dst: ~/.emacs_aliases
-  f_emacs-config.el:
-    src: emacs.d/emacs-config.el
-    dst: ~/.emacs.d/emacs-config.el
   f_emacs-config.org:
     src: emacs.d/emacs-config.org
     dst: ~/.emacs.d/emacs-config.org
@@ -71,7 +68,6 @@ profiles:
     - f_config
     - f_dir_colors
     - f_emacs_aliases
-    - f_emacs-config.el
     - f_emacs-config.org
     - f_gitconfig
     - f_init.el
@@ -89,7 +85,6 @@ profiles:
     - f_config
     - f_dir_colors
     - f_emacs_aliases
-    - f_emacs-config.el
     - f_emacs-config.org
     - f_gitconfig
     - f_init.el
@@ -107,7 +102,6 @@ profiles:
     - f_config
     - f_dir_colors
     - f_emacs_aliases
-    - f_emacs-config.el
     - f_emacs-config.org
     - f_gitconfig
     - f_init.el
@@ -124,7 +118,6 @@ profiles:
     - f_config
     - f_dir_colors
     - f_emacs_aliases
-    - f_emacs-config.el
     - f_emacs-config.org
     - f_gitconfig
     - f_init.el
@@ -141,7 +134,6 @@ profiles:
     - f_config
     - f_dir_colors
     - f_emacs_aliases
-    - f_emacs-config.el
     - f_emacs-config.org
     - f_gitconfig
     - f_init.el

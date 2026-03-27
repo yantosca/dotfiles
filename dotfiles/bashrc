@@ -37,6 +37,15 @@ cd ~                                              # Start in home directory
 [[ -f ~/.bash_functions ]] && . ~/.bash_functions
 [[ -f ~/.bash_aliases   ]] && . ~/.bash_aliases
 
+# Add bash completion at the command line
+if ! shopt -oq posix; then
+    if [[ -f /usr/share/bash-completion/bash_completion ]]; then
+        . /usr/share/bash-completion/bash_completion
+    elif [[ -f /etc/bash_completion ]]; then
+        . /etc/bash_completion
+    fi
+fi
+
 ##############################################################################
 #####  Add your local SSH private keys to the SSH agent and start it     #####
 #####  cf https://gist.github.com/Perigrinox/git bash ssh agent.md       #####

@@ -56,8 +56,8 @@ fi
 # then add the private key that is stored in your AWS account here.
 # Add as many private keys as you like.  Private keys should be stored
 # in the ~/.ssh folder.
-#key_1=~/.ssh/bmy_aws_keypair.pem
-key_2=~/.ssh/id_rsa_20181218
+key_1=~/.ssh/id_rsa_20181218
+key_2=~/.ssh/bmy_aws_keypair.pem
 
 # Start the ssh-agent (if necessary)
 env=~/.ssh/agent.env
@@ -79,13 +79,13 @@ if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
 
     # Agent is not running, so start it
     agent_start
-    #ssh-add ${key_1}
+    ssh-add ${key_1}
     ssh-add ${key_2}
     
 elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
 
     # Agent is running, so add keys
-    #ssh-add ${key_1}
+    ssh-add ${key_1}
     ssh-add ${key_2}
 
 fi

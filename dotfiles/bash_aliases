@@ -195,8 +195,9 @@ alias dbkpp="docker build -f ./.ci-pipelines/Dockerfile -t kpp-build ."
 alias drkpp="docker run -it --entrypoint /bin/bash kpp-build"
 export KPP_FLEX_LIB_DIR="/usr/lib64"
 {%@@ elif profile == "calculon" @@%}
-# Path o flex library for KPP (installed via Homebrew)
-export KPP_FLEX_LIB_DIR=/usr/local/Cellar/flex/2.6.4_2/lib
+# Path to flex lifbrary for KPP (installed via Homebrew)
+export KPP_FLEX_LIB_DIR=$(brew --prefix flex)/lib
+export DYLD_LIBRARY_PATH="${DYLD_LIBRARY_PATH}:${KPP_FLEX_LIB_DIR}"
 {%@@ elif profile == "zoidberg" @@%}
 # For KPP C-I tests in the Docker container
 alias dbkpp="docker build -f ./.ci-pipelines/Dockerfile -t kpp-build ."
@@ -287,7 +288,7 @@ export F77=gfortran
 #============================================================================
 
 # --- Homebrew GCC (override Apple Clang) -----------------------------------
-GCC_BIN="/usr/local/opt/gcc/bin"
+GCC_BIN="$(brew --prefix gcc)/bin"
 
 if [[ -d "${GCC_BIN}" ]]; then
 
@@ -323,6 +324,9 @@ if [[ -d "${GCC_BIN}" ]]; then
     fi
 
 fi
+unset GCC_BIN
+unset GCC_VER
+
 {%@@ elif profile == "hypnotoad" @@%}
 #============================================================================
 # %%%%% Personal settings: Compilers (Linux) %%%%%

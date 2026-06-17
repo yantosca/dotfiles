@@ -8,7 +8,18 @@
 #============================================================================
 # Source the .bashrc file if it exists
 #============================================================================
-[[ -f ~/.bashrc ]] && . ~/.bashrc
+{%@@ if profile == "calculon" @@%}
+
+# Initialize Homebrew (handles both Intel and Apple Silicon)
+if   [[ -x "/opt/homebrew/bin/brew" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"     # Apple Silicon
+elif [[ -x "/usr/local/bin/brew" ]]; then
+    eval "$(/usr/local/bin/brew shellenv)"        # Intel
+fi
+{%@@ endif @@%}
+
+# Load .bashrc for aliases, functions, env vars
+[[ -f "${HOME}/.bashrc" ]] && . "${HOME}/.bashrc"
 
 {%@@ if profile == "bender" @@%}
 #============================================================================

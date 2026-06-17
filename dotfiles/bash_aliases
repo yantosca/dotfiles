@@ -283,17 +283,46 @@ export F77=gfortran
 # %%%%% Personal settings: Compilers (MacOS) %%%%%
 #
 # NOTE: MacOSX installs Clang as /usr/bin/gcc, so we have to manually
-# force reference to gcc-13, g++-13, and gfortran-13, which HomeBrew
-# installs to /usr/local/bin.
+# force reference to GNU compilers in /usr/local/opt/gcc/bin.
 #============================================================================
-alias gcc=gcc-14
-alias g++=g++-14
-alias gfortran=gfortran-14
-export CC=gcc
-export CXX=g++-14
-export FC=gfortran-14
-export F77=gfortran-14
 
+# --- Homebrew GCC (override Apple Clang) -----------------------------------
+GCC_BIN="/usr/local/opt/gcc/bin"
+
+if [[ -d "${GCC_BIN}" ]]; then
+
+    # Auto-detect the GCC major version by finding the gcc-NN executable
+    # Pipeline: find gcc-NN files --> extract 'gcc-NN' ->
+    #           sort numerically --> take highest → extract number
+    GCC_VER=$(find "${GCC_BIN}" -maxdepth 1 -name 'gcc-[0-9]*' 2>/dev/null \
+              | grep -oE 'gcc-[0-9]+$'  \
+              | sort -t'-' -k2 -n       \
+              | tail -1                 \
+              | grep -oE '[0-9]+$')
+
+    if [[ "x${GCC_VER}" != "x" ]]; then
+
+	unset CC
+	unset CXX
+	unset FC
+
+        # --- Interactive shell aliases ----------------------------------------
+        alias gcc="${GCC_BIN}/gcc-${GCC_VER}"
+        alias cc="${GCC_BIN}/gcc-${GCC_VER}"
+        alias g++="${GCC_BIN}/g++-${GCC_VER}"
+        alias c++="${GCC_BIN}/g++-${GCC_VER}"
+        alias gfortran="${GCC_BIN}/gfortran-${GCC_VER}"
+
+        # --- Build-system variables (make, cmake, autoconf, etc.) ------------
+        export CC="${GCC_BIN}/gcc-${GCC_VER}"
+        export CXX="${GCC_BIN}/g++-${GCC_VER}"
+        export FC="${GCC_BIN}/gfortran-${GCC_VER}"
+	export F77="${FC}"
+    else
+        echo "WARNING: Could not detect GCC version in ${GCC_BIN}" >&2
+    fi
+
+fi
 {%@@ elif profile == "hypnotoad" @@%}
 #============================================================================
 # %%%%% Personal settings: Compilers (Linux) %%%%%

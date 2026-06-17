@@ -4,21 +4,17 @@
 # NOTE: Make sure .Xresources has xterm*loginShell: true.
 # which will cause xterm to always read .bash_profile first!
 #
+{%@@ if profile == "calculon" @@%}
+#============================================================================
+# Initialize Homebrew
+#============================================================================
+eval "$($(brew --prefix)/bin/brew shellenv)"
+{%@@ endif @@%}
 
 #============================================================================
 # Source the .bashrc file if it exists
+# This will load aliases, functions, environment variables
 #============================================================================
-{%@@ if profile == "calculon" @@%}
-
-# Initialize Homebrew (handles both Intel and Apple Silicon)
-if   [[ -x "/opt/homebrew/bin/brew" ]]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"     # Apple Silicon
-elif [[ -x "/usr/local/bin/brew" ]]; then
-    eval "$(/usr/local/bin/brew shellenv)"        # Intel
-fi
-{%@@ endif @@%}
-
-# Load .bashrc for aliases, functions, env vars
 [[ -f "${HOME}/.bashrc" ]] && . "${HOME}/.bashrc"
 
 {%@@ if profile == "bender" @@%}

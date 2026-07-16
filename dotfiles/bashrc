@@ -58,6 +58,7 @@ fi
 # in the ~/.ssh folder.
 key_1=~/.ssh/id_rsa_20181218
 key_2=~/.ssh/bmy_aws_keypair.pem
+key_3=~/.ssh/gcst_keypair.pem
 
 # Start the ssh-agent (if necessary)
 env=~/.ssh/agent.env
@@ -81,19 +82,21 @@ if [ ! "$SSH_AUTH_SOCK" ] || [ $agent_run_state = 2 ]; then
     agent_start
     ssh-add ${key_1}
     ssh-add ${key_2}
+    ssh-add ${key_3}
     
 elif [ "$SSH_AUTH_SOCK" ] && [ $agent_run_state = 1 ]; then
 
     # Agent is running, so add keys
     ssh-add ${key_1}
     ssh-add ${key_2}
-
+    ssh-add ${key_3}
 fi
 
 # Free variables
 unset env
 unset key_1
 unset key_2
+unset key_3
 
 {%@@ if profile =="bender" @@%}
 # added by Miniconda3 4.5.12 installer

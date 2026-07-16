@@ -1,0 +1,11 @@
+# Normalize line endings for shell/config files regardless of platform
+* text=auto eol=lf
+
+# Windows-specific files should keep CRLF
+dotfiles/minttyrc text eol=crlf
+
+# Binary files
+dotfiles/barrier.sgc binary
+
+# Don't let GitHub language stats count the vendored dotdrop submodule
+dotdrop linguist-vendored

@@ -47,9 +47,10 @@ export KPP_HOME="${HOME}/repos/KPP3"
 export PATH="${PATH}:${KPP_HOME}/bin"
 
 # Define PATH
+# Add ~/.local/bin to head of path for Claude Code
 # Add /usr/local/sbin to head of $PATH (to avoid warnings)
 # Add /usr/local/bin before /usr/bin so that GCC won't pick up Clang
-PATH=/usr/local/sbin/:${HOME}/bin:/usr/local/bin:$(command -p getconf PATH):/usr/local/sbin:${HOME}/miniconda3/bin:${PATH}:${KPP_HOME}/bin
+PATH=${HOME}/.local/bin:/usr/local/sbin/:${HOME}/bin:/usr/local/bin:$(command -p getconf PATH):/usr/local/sbin:${HOME}/miniconda3/bin:${PATH}:${KPP_HOME}/bin
 
 {%@@ elif profile == "cygwin" @@%}
 #============================================================================

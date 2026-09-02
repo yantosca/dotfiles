@@ -253,30 +253,30 @@ alias hl8="ssh holylogin08"
 #============================================================================
 # %%%%% Personal settings: Python %%%%%
 #============================================================================
+
+# Environment variables for Python
 if [[ "x${PYTHONPATH}" == "x" ]]; then
-
-    # Environment variables for Python
     export PYTHONPATH="${PYTHONPATH}:${HOME}/repos/gcpy"  # Path to GCPy
-    export PYTHONWARNINGS="ignore::DeprecationWarning"    # Ignore warnings
-    export PYLINTRC="~/.pylint.rc"
-    export XDG_RUNTIME_DIR="/tmp/runtime-${USER}"         # Temp folder
-    alias conact="conda activate"                         # conda activate
-    alias conde="conda deactivate"                        # conda deactivate
-
-    # Set the X11 backend for Matplotlib.
-    export MPLBACKEND="tkagg"                             # X11 (default)
-    alias mpl_agg="export MPLBACKEND=agg"                 # No graphics
-    alias mpl_tkagg="export MPLBACKEND=tkagg"             # X11
-
-    # Convenience aliases for common GCPy routines
-    alias cmpdiag="python -m gcpy.examples.diagnostics.compare_diags"
-    alias gccstats="python -m gcpy.benchmark.modules.benchmark_gcclassic_stats"
-    alias gchpstats="python -m gcpy.benchmark.modules.benchmark_gchp_stats"
-    alias hotspots="python -m gcpy.profile.vtune_list_hotspots"
-    alias plothot="python -m gcpy.profile.vtune_plot_hotspots"
-    alias runbmk="python -m gcpy.benchmark.run_benchmark"
-
 fi
+
+export PYTHONWARNINGS="ignore::DeprecationWarning"        # Ignore warnings
+export PYLINTRC="~/.pylint.rc"
+export XDG_RUNTIME_DIR="/tmp/runtime-${USER}"             # Temp folder
+alias conact="conda activate"                             # conda activate
+alias conde="conda deactivate"                            # conda deactivate
+
+# Set the X11 backend for Matplotlib
+export MPLBACKEND="tkagg"                                 # X11 (default)
+alias mpl_agg="export MPLBACKEND=agg"                     # No graphics
+alias mpl_tkagg="export MPLBACKEND=tkagg"                 # X11
+
+# Convenience aliases for common GCPy routines
+alias cmpdiag="python -m gcpy.examples.diagnostics.compare_diags"
+alias gccstats="python -m gcpy.benchmark.modules.benchmark_gcclassic_stats"
+alias gchpstats="python -m gcpy.benchmark.modules.benchmark_gchp_stats"
+alias hotspots="python -m gcpy.profile.vtune_list_hotspots"
+alias plothot="python -m gcpy.profile.vtune_plot_hotspots"
+alias runbmk="python -m gcpy.benchmark.run_benchmark"
 
 {%@@ if profile == "bender" @@%}
 #============================================================================

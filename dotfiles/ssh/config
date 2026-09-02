@@ -1,7 +1,7 @@
 # Defaults for all hosts
 Host *
-  ServerAliveInterval 240                 # Prevents session timeouts
-  ServerAliveCountMax 6                   # Prevents session timeouts
+  ServerAliveInterval 30                  # Prevents session timeouts
+  ServerAliveCountMax 3                   # Prevents session timeouts
   ForwardX11Trusted   yes                 # X11 forwarding (-Y)
   ForwardAgent        yes                 # SSH key forwarding (-A)
 {%@@ if profile == "calculon" @@%}

@@ -988,30 +988,31 @@ Look for init files in the emacs-libvterm submodule.
 
 
 Kill the buffer when vterminal is exited.
-See http://emacs-journey.blogspot.com.au/2012/06/improving-ansi-vterm.html
+
+This used to advise =vterm-sentinel=, copied from the ansi-term recipe at
+http://emacs-journey.blogspot.com.au/2012/06/improving-ansi-vterm.html.
+No such function exists -- vterm's is the private =vterm--sentinel= -- so
+the advice never ran.  vterm does this itself via =vterm-kill-buffer-on-exit=,
+which already defaults to t; set it explicitly so the intent is visible and
+survives a change of default.
 
 #+BEGIN_SRC emacs-lisp
   (when enable-vterm
-    (defun my-vterm-sentinel-kill-buffer (orig-fun proc msg)
-      "Kill the vterm buffer once PROC has exited."
-      (if (memq (process-status proc) '(signal exit))
-          (let ((buffer (process-buffer proc)))
-            (funcall orig-fun proc msg)
-            (kill-buffer buffer))
-        (funcall orig-fun proc msg)))
-    (advice-add 'vterm-sentinel :around #'my-vterm-sentinel-kill-buffer)
+    (setq vterm-kill-buffer-on-exit t)
   )
 #+END_SRC
 
 Always use bash (sorry zsh...)
 
+Unlike =term=, whose argument is the program to run, =vterm='s optional
+argument is a buffer name -- so overriding its interactive spec with a
+shell path named the buffer "/bin/bash" rather than choosing the shell.
+vterm reads the shell from =vterm-shell=, so set that instead.
+
 #+BEGIN_SRC emacs-lisp
   (when enable-vterm
     (defvar my-vterm-shell "/bin/bash")
-    (defun my-vterm-force-bash (&rest _)
-      "Override `vterm''s interactive spec to pass `my-vterm-shell'."
-      (interactive (list my-vterm-shell)))
-    (advice-add 'vterm :before #'my-vterm-force-bash)
+    (setq vterm-shell my-vterm-shell)
   )
 #+END_SRC
 

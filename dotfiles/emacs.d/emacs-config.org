@@ -854,13 +854,14 @@ See: http://emacs-journey.blogspot.com.au/2012/06/improving-ansi-term.html
 
 #+BEGIN_SRC emacs-lisp
   (unless enable-vterm
-    (defadvice term-sentinel (around my-advice-term-sentinel (proc msg))
+    (defun my-term-sentinel-kill-buffer (orig-fun proc msg)
+      "Kill the term buffer once PROC has exited."
       (if (memq (process-status proc) '(signal exit))
           (let ((buffer (process-buffer proc)))
-            ad-do-it
+            (funcall orig-fun proc msg)
             (kill-buffer buffer))
-        ad-do-it))
-    (ad-activate 'term-sentinel)
+        (funcall orig-fun proc msg)))
+    (advice-add 'term-sentinel :around #'my-term-sentinel-kill-buffer)
     )
 #+END_SRC
 
@@ -869,10 +870,10 @@ Always enable bash (sorry zsh...)
 #+BEGIN_SRC emacs-lisp
   (unless enable-vterm
     (defvar my-term-shell "/bin/bash")
-    (defadvice term (before force-bash)
-      (interactive
-       (list my-term-shell)))
-    (ad-activate 'term)
+    (defun my-term-force-bash (&rest _)
+      "Override `term''s interactive spec to always run `my-term-shell'."
+      (interactive (list my-term-shell)))
+    (advice-add 'term :before #'my-term-force-bash)
     )
 #+END_SRC
 
@@ -991,13 +992,14 @@ See http://emacs-journey.blogspot.com.au/2012/06/improving-ansi-vterm.html
 
 #+BEGIN_SRC emacs-lisp
   (when enable-vterm
-    (defadvice vterm-sentinel (around my-advice-vterm-sentinel (proc msg))
+    (defun my-vterm-sentinel-kill-buffer (orig-fun proc msg)
+      "Kill the vterm buffer once PROC has exited."
       (if (memq (process-status proc) '(signal exit))
           (let ((buffer (process-buffer proc)))
-            ad-do-it
+            (funcall orig-fun proc msg)
             (kill-buffer buffer))
-        ad-do-it))
-    (ad-activate 'vterm-sentinel)
+        (funcall orig-fun proc msg)))
+    (advice-add 'vterm-sentinel :around #'my-vterm-sentinel-kill-buffer)
   )
 #+END_SRC
 
@@ -1006,10 +1008,10 @@ Always use bash (sorry zsh...)
 #+BEGIN_SRC emacs-lisp
   (when enable-vterm
     (defvar my-vterm-shell "/bin/bash")
-    (defadvice vterm (before force-bash)
-      (interactive
-       (list my-vterm-shell)))
-    (ad-activate 'vterm)
+    (defun my-vterm-force-bash (&rest _)
+      "Override `vterm''s interactive spec to pass `my-vterm-shell'."
+      (interactive (list my-vterm-shell)))
+    (advice-add 'vterm :before #'my-vterm-force-bash)
   )
 #+END_SRC
 

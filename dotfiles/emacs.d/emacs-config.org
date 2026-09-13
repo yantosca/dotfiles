@@ -1083,3 +1083,28 @@ Set some vterm-specific keybindings.
     (define-key global-map (kbd "C-x e") 'multi-vterm)
   )
 #+END_SRC
+
+* Edit server
+
+Start the Emacs server inside this (GUI) session so that =emacsclient=
+can open files in it instead of launching a separate Emacs.  This is
+what the =~/bin/ec= script and git's =core.editor= connect to.
+
+Guarded with =server-running-p= so that starting a second Emacs (or a
+=--daemon= session, which starts its own server) does not complain about
+an existing socket.
+
+Wrapped in =condition-case= because =server-start= signals an error when
+the socket directory is considered unsafe -- e.g. =/tmp/emacs<uid>= owned
+by another user, which happens on shared/multi-user machines such as HPC
+login nodes.  Without this, such a machine would print an error on every
+startup.  Failing to get a server is never worth breaking init over.
+
+#+BEGIN_SRC emacs-lisp
+  (require 'server)
+  (unless (server-running-p)
+    (condition-case err
+        (server-start)
+      (error
+       (message "Emacs server not started: %s" (error-message-string err)))))
+#+END_SRC

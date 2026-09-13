@@ -17,9 +17,38 @@
 This section defines global variables that are used to toggle other
 settings further down in this initialization file.
 
+Everything here is a plain Emacs-lisp switch.  The defaults are derived
+from `my-machine' below, so this file can be copied to any of my machines
+unmodified; edit a `setq' here if a machine wants something different.
+
+** Machine
+
+Which machine this configuration is running on.  Used only to pick the
+defaults for the switches below -- nothing else should branch on it.
+
+Detected from `system-name' by prefix, because these hosts do not always
+report a bare name: this Mac calls itself "calculon-3.local".  An
+unrecognized host falls back to `generic', which is a plain GTK/X11 Linux
+setup.  Set `my-machine' by hand if the guess is wrong.
+
+#+BEGIN_SRC emacs-lisp
+  (defvar my-machine
+    (let ((host (downcase (car (split-string (system-name) "\\.")))))
+      (cond ((string-prefix-p "bender"    host) 'bender)
+            ((string-prefix-p "calculon"  host) 'calculon)
+            ((string-prefix-p "hypnotoad" host) 'hypnotoad)
+            ((string-prefix-p "zoidberg"  host) 'zoidberg)
+            ((eq system-type 'cygwin)           'cygwin)
+            ((eq system-type 'darwin)           'calculon)
+            (t                                  'generic)))
+    "Symbol naming the machine this Emacs is running on.
+Only used to choose defaults in the Global toggles section.")
+#+END_SRC
+
 ** Graphical backend library
 
 Select athena/X11 (t) or GTK (nil) as the graphical display package.
+Requires an Emacs actually built with the Athena toolkit; nil elsewhere.
 
 #+BEGIN_SRC emacs-lisp
   (setq enable-athena-backend nil)
@@ -35,14 +64,28 @@ Decide whether to use 1 or 2 vertical frames at startup.
 
 ** Vterm
 
-Enable vterm terminal emulation.
+Enable vterm terminal emulation.  Off on bender, which has no working
+vterm module build.
 
 #+BEGIN_SRC emacs-lisp
-  {%@@ if profile == "bender" @@%}
-  (setq enable-vterm nil)
-  {%@@ else @@%}
-  (setq enable-vterm t)
-  {%@@ endif @@%}
+  (setq enable-vterm (not (eq my-machine 'bender)))
+#+END_SRC
+
+** Default font
+
+The font used for graphical frames, as an X logical font description.
+DejaVu Sans Mono everywhere except this Mac, at the size each display
+wants.  See the Font section under Display for where this is applied.
+
+#+BEGIN_SRC emacs-lisp
+  (setq my-default-font
+        (pcase my-machine
+          ('calculon
+           "-*-source code pro-Bold-R-*-*-*-160-*-*-*-*-iso8859-1")
+          ((or 'cygwin 'zoidberg)
+           "-*-DejaVuSansMono-Bold-R-*-*-*-120-*-*-*-*-iso8859-1")
+          (_
+           "-*-DejaVuSansMono-Bold-R-*-*-*-100-*-*-*-*-iso8859-1")))
 #+END_SRC
 
 
@@ -105,12 +148,17 @@ Display a timestamp in a buffer
   (insert (format-time-string "!  %e %b %Y - R. Yantosca - ")))
 #+END_SRC
 
-Customized insertion of timestamp (function is defined below in miscella.)
+Customized insertion of timestamp: insert it, then start a new line
+with a trailing space ready for typing.
 
 #+BEGIN_SRC emacs-lisp
-(fset 'macrotimestamp
-      [?\M-x ?i ?n ?s ?e ?r ?t ?- ?t ?i ?m ?e ?s ?t tab return return left ? ])
-
+(defun macrotimestamp ()
+  "Insert a formatted timestamp, then a new line with a trailing space."
+  (interactive)
+  (insert-timestamp)
+  (newline)
+  (backward-char)
+  (insert " "))
 #+END_SRC
 
 ** Font
@@ -120,22 +168,13 @@ Select a default font (Emacs with GTK backend only)
 NOTE: If using athena/X11 as the backend, then the default font can be
 set with the emacs.Font specification in your ~/.Xresources file.
 
+The font itself is chosen per machine by `my-default-font', in the Global
+toggles section at the top of this file.
+
 #+BEGIN_SRC emacs-lisp
   (unless enable-athena-backend
     (when (display-graphic-p)
-      (set-face-font
-       'default
-       {%@@ if profile == "bender" @@%}
-       "-*-DejaVuSansMono-Bold-R-*-*-*-100-*-*-*-*-iso8859-1")))
-       {%@@ elif profile == "calculon" @@%}
-       "-*-source code pro-Bold-R-*-*-*-160-*-*-*-*-iso8859-1")))
-       {%@@ elif profile == "cygwin" @@%}
-       "-*-DejaVuSansMono-Bold-R-*-*-*-120-*-*-*-*-iso8859-1")))
-       {%@@ elif profile == "hypnotoad" @@%}
-       "-*-DejaVuSansMono-Bold-R-*-*-*-100-*-*-*-*-iso8859-1")))
-       {%@@ elif profile == "zoidberg" @@%}
-       "-*-DejaVuSansMono-Bold-R-*-*-*-120-*-*-*-*-iso8859-1")))
-       {%@@ endif @@%}
+      (set-face-font 'default my-default-font)))
 #+END_SRC
 
 ** Frames
@@ -248,7 +287,6 @@ This section contains various settings.
  '(column-number-mode t)
  '(current-language-environment "ASCII")
  '(display-time-mode t)
- '(global-font-lock-mode t nil (font-lock))
  '(package-selected-packages '(better-shell magit yasnippet-classic-snippets))
  '(query-user-mail-address nil)
  '(user-mail-address "yantosca@seas.harvard.edu"))
@@ -268,27 +306,36 @@ Various settings for backing up and autosaving.
 
 ** Omit
 
-;; This C-o business was working in Xemacs, but it is not in Emacs...:
-;; to add ".mod" to the list of file type to omit when you do C-o in
-;; Directory.
+Hide files matching a regexp from the current Dired listing (mark
+matching files, then remove those lines from the display; the files
+themselves are untouched).  Use `M-x revert-buffer' to bring them back.
 
 #+BEGIN_SRC emacs-lisp
-  (defalias 'omitmod
-    (read-kbd-macro "C-u %o.mod RET"))
+  (defun omitmod ()
+    "Hide .mod files from the current Dired listing."
+    (interactive)
+    (dired-mark-files-regexp "\\.mod$")
+    (dired-do-kill-lines))
 #+END_SRC
 
 Redefine the "omit" functions for Emacs in dired mode.
 
 #+BEGIN_SRC emacs-lisp
-  (fset 'omitdotfiles
-        [?% ?m ?^ ?\\ ?. ?. ?* return ?k])
+  (defun omitdotfiles ()
+    "Hide dotfiles from the current Dired listing."
+    (interactive)
+    (dired-mark-files-regexp "^\\..*")
+    (dired-do-kill-lines))
 #+END_SRC
 
 And this one will omit .o, .mod, ~, and . files from directory listing.
 
 #+BEGIN_SRC emacs-lisp
-  (fset 'omit-fortran
-        [?% ?m ?^ ?\\ ?. ?\\ ?| ?\\ ?. ?o ?$ ?\\ ?| ?\\ ?. ?m ?o ?d ?$ ?\\ ?| ?~ ?$ return ?k])
+  (defun omit-fortran ()
+    "Hide dotfiles, .o, .mod, and backup (~) files from the current Dired listing."
+    (interactive)
+    (dired-mark-files-regexp "^\\.\\|\\.o$\\|\\.mod$\\|~$")
+    (dired-do-kill-lines))
 #+END_SRC
 
 ** Repositories
@@ -300,6 +347,7 @@ This is the emacs default package location.
   (require 'package)
   (add-to-list 'package-archives
                '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+  (package-initialize)
 
 #+END_SRC
 
@@ -308,15 +356,20 @@ This is the emacs default package location.
 Kill process (like a tail -f) and purge output. In shell mode.
 
 #+BEGIN_SRC emacs-lisp
-(defalias 'quitnclean
-  (read-kbd-macro "C-c C-\\ C-c C-o"))
+(defun quitnclean ()
+  "Kill the running subjob (e.g. tail -f) and purge its output from the buffer."
+  (interactive)
+  (comint-quit-subjob)
+  (comint-delete-output))
 #+END_SRC
 
 Quick swapping between 2 buffers.
 
 #+BEGIN_SRC emacs-lisp
-(defalias 'swapbuffer
-  (read-kbd-macro "C-x b RET"))
+(defun swapbuffer ()
+  "Switch to the most recently used other buffer."
+  (interactive)
+  (switch-to-buffer (other-buffer (current-buffer) t)))
 #+END_SRC
 
 
@@ -329,7 +382,7 @@ Keybindings for swapping or deleting buffers.
 #+BEGIN_SRC emacs-lisp
   (global-set-key [f10] 'swapbuffer)
   (global-set-key [f11] 'switch-to-buffer)
-  (global-set-key [f12] 'kill-this-buffer)
+  (global-set-key [f12] (lambda () (interactive) (kill-buffer (current-buffer))))
 #+END_SRC
 
 ** Deletion
@@ -432,19 +485,19 @@ Assign major modes to certain file extensions
         (append '(("\\.cmake"      . cmake-mode)
                   ("\\.c$"         . c-mode)
                   ("\\.C$"         . c++-mode)
+                  ("\\.hh$"        . c++-mode)
+                  ("\\.hpp$"       . c++-mode)
                   ("\\.cpp$"       . c++-mode)
                   ("\\.h$"         . c++-mode)
-                  ("\\.hh$"        . c++-mode)
                   ("\\.hM$"        . c++-mode)
-                  ("\\.hpp$"       . c++-mode)
                   ("\\.F$"         . fortran-mode)
-                  ("\\.F90$"       . f90-mode)
+                  ("\\.H$"         . f90-mode)
                   ("\\.eqn$"       . kpp-mode)
                   ("\\.kpp$"       . kpp-mode)
                   ("\\.spc$"       . kpp-mode)
-                  ("\\.H$"         . f90-mode)
+                  ("\\.F90$"       . f90-mode)
                   ("\\.tex$"       . latex-mode)
-                  ("\\.m$"         . matlab-mode)
+                  ("\\.m$"         . octave-mode)
                   ("\\.md$"        . markdown-mode)
                   ("\\.org$"       . org-mode)
                   ("\\.sh$"        . shell-script-mode)
@@ -460,12 +513,15 @@ Assign major modes to certain file extensions
 Manually specify major-modes for certain files.
 
 #+BEGIN_SRC emacs-lisp
-  (add-to-list 'auto-mode-alist '(".bash_profile"         . shell-script-mode))
-  (add-to-list 'auto-mode-alist '(".bashrc"               . shell-script-mode))
-  (add-to-list 'auto-mode-alist '(".bash_aliases"         . shell-script-mode))
-  (add-to-list 'auto-mode-alist '(".my_personal_settings" . shell-script-mode))
-  (add-to-list 'auto-mode-alist '(".README"               . fundamental-mode))
-  (add-to-list 'auto-mode-alist '("input.geos"            . conf-mode))
+  (add-to-list 'auto-mode-alist '("\\.profile\\'"              . shell-script-mode))
+  (add-to-list 'auto-mode-alist '("\\.bash_profile\\'"         . shell-script-mode))
+  (add-to-list 'auto-mode-alist '("\\.bashrc\\'"               . shell-script-mode))
+  (add-to-list 'auto-mode-alist '("\\.bash_aliases\\'"         . shell-script-mode))
+  (add-to-list 'auto-mode-alist '("\\.bash_functions\\'"       . shell-script-mode))
+  (add-to-list 'auto-mode-alist '("\\.bash_logout\\'"          . shell-script-mode))
+  (add-to-list 'auto-mode-alist '("\\.my_personal_settings\\'" . shell-script-mode))
+  (add-to-list 'auto-mode-alist '("\\.README\\'"               . fundamental-mode))
+  (add-to-list 'auto-mode-alist '("input\\.geos\\'"            . conf-mode))
 #+END_SRC
 
 ** auto-image-file-mode
@@ -478,24 +534,22 @@ Display images in emacs buffer.
 
 ** cperl-mode
 
+NOTE: .pl files are assigned to cperl-mode (see Auto-assign modes,
+above), so settings here use the cperl-* variables, not the perl-*
+variables that belong to the older, separate perl-mode.
+
 Set indent level to 2 spaces (also in sub-blocks).
 
 #+BEGIN_SRC emacs-lisp
-  (setq perl-indent-level 2)
-  (setq perl-continued-statement-offset 2)
+  (setq cperl-indent-level 2)
+  (setq cperl-continued-statement-offset 2)
  #+END_SRC
-
-Create a new comment with TAB.
-
-#+BEGIN_SRC emacs-lisp
-  (setq perl-tab-to-comment t)
-#+END_SRC
 
 Matching parentheses and auto-expansion of keywords.
 
 #+BEGIN_SRC emacs-lisp
-  (setq perl-electric-parens t)
-  (setq perl-electric-keywords t)
+  (setq cperl-electric-parens t)
+  (setq cperl-electric-keywords t)
 #+END_SRC
 
 ** ediff-mode
@@ -524,15 +578,21 @@ Set background colors for ediff-mode.
 To restore my 2 windows setting w/ each compared file in one window.
 
 #+BEGIN_SRC emacs-lisp
-  (defalias 'clean-after-ediff
-    (read-kbd-macro "C-x 1 C-x 3 C-x b RET"))
+  (defun clean-after-ediff ()
+    "Restore a simple 2-window, side-by-side layout after an Ediff session."
+    (interactive)
+    (delete-other-windows)
+    (split-window-right)
+    (switch-to-buffer (other-buffer (current-buffer) t)))
 #+END_SRC
 
 Close the two compared windows.
 
 #+BEGIN_SRC emacs-lisp
-  (defalias 'fullcleanediff
-    (read-kbd-macro "<f3> <f2> <f3>"))
+  (defun fullcleanediff ()
+    "Close all the extra windows opened by an Ediff session, leaving a single window."
+    (interactive)
+    (delete-other-windows))
 
 #+END_SRC
 
@@ -542,9 +602,7 @@ Turn on global font-lock mode (which colorizes text depending on which
 mode you are in).  Useful for programming.
 
 #+BEGIN_SRC emacs-lisp
-(if (fboundp 'global-font-lock-mode)
-    (global-font-lock-mode 1)          ; GNU Emacs
-    (setq font-lock-auto-fontify t))   ; XEmacs
+(global-font-lock-mode 1)
 #+END_SRC
 
 ** f90-mode
@@ -554,18 +612,11 @@ Most notably, disable the electric indent mode.
 
 #+BEGIN_SRC emacs-lisp
   (add-hook 'f90-mode-hook
-            (function
-             (lambda ()
-
-               ;; use abbreviations (e.g.: "`pr" for "print")
-               (setq  abbrev-mode 1)
-
-               ; Turn off automatic indentation for Fortran mode only
-               (when (fboundp 'electric-indent-mode) (electric-indent-mode -1))
-
-               )
-             )
-            )
+            (lambda ()
+              ;; use abbreviations (e.g.: "`pr" for "print")
+              (setq abbrev-mode 1)
+              ;; Turn off automatic indentation for Fortran mode only
+              (electric-indent-mode -1)))
 #+END_SRC
 
 Align comments with the code.
@@ -588,18 +639,11 @@ Most notably, disable electric-indent-mode.
 
 #+BEGIN_SRC emacs-lisp
   (add-hook 'fortran-mode-hook
-            (function
-             (lambda ()
-               (setq
-                ;; use abbreviations (e.g.: ";s" for "stop")
-                abbrev-mode 1
-                )
-
-               ; Turn off automatic indentation for Fortran mode only
-               (when (fboundp 'electric-indent-mode) (electric-indent-mode -1))
-               )
-             )
-  )
+            (lambda ()
+              ;; use abbreviations (e.g.: ";s" for "stop")
+              (setq abbrev-mode 1)
+              ;; Turn off automatic indentation for Fortran mode only
+              (electric-indent-mode -1)))
 #+END_SRC
 
 Load fortran-mode.
@@ -608,7 +652,6 @@ Load fortran-mode.
   (require 'fortran)
 #+END_SRC
 
-
 ** markdown-mode
 
 Load markdown-mode
@@ -616,7 +659,6 @@ Load markdown-mode
 #+BEGIN_SRC emacs-lisp
   (require 'markdown-mode)
 #+END_SRC
-
 
 ** org-mode
 
@@ -713,11 +755,14 @@ Set default column view headings: Task Total-Time Time-Stamp
   (setq org-columns-default-format "%50ITEM(Task) %10CLOCKSUM %16TIMESTAMP_IA")
 #+END_SRC
 
+** shell-mode (interactive M-x shell)
 
-** shell-script-mode
+Define a hook that will start certain things when an interactive
+shell (M-x shell) starts: The home key, cycling up & down through
+command history.
 
-Define a hook that will start certain things when shell-script mode
-starts: The home key, cycling up & down through command history.
+NOTE: This is shell-mode (the comint-based interactive shell buffer),
+not shell-script-mode/sh-mode (editing .sh files) below.
 
 #+BEGIN_SRC emacs-lisp
 (add-hook 'shell-mode-hook
@@ -738,6 +783,17 @@ starts: The home key, cycling up & down through command history.
              )
 )
 #+END_SRC
+
+** shell-script-mode (editing scripts)
+
+Use spaces instead of tabs in shell-script-mode
+
+#+BEGIN_SRC emacs-lisp
+(defun turn-off-indent-tabs-mode ()
+  (setq indent-tabs-mode nil))
+(add-hook 'sh-mode-hook #'turn-off-indent-tabs-mode)
+#+END_SRC
+
 
 ** text-mode
 
@@ -843,7 +899,7 @@ See http://stackoverflow.com/questions/2886184/copy-paste-in-emacs-ansi-term-she
       ;; yank in term (bound to C-c C-y)
       (define-key term-raw-escape-map "\C-y"
         (lambda ()
-          ((insert )nteractive)
+          (interactive)
           (term-send-raw-string (current-kill 0)))))
     (add-hook 'term-mode-hook 'ash-term-hooks)
   )

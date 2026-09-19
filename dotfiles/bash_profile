@@ -147,4 +147,11 @@ else
 fi
 unset __conda_setup
 # <<< conda initialize <<<
+
+# >>> Homebrew Intel x86_64 guards >>>
+# Homebrew stopped building x86_64 bottles in Sept 2026, so any install/upgrade
+# now compiles from source. These keep that from happening by surprise.
+export HOMEBREW_NO_AUTO_UPDATE=1      # no metadata churn (and new revisions) on every install
+export HOMEBREW_NO_INSTALL_UPGRADE=1  # `brew install X` won't silently upgrade an existing X
+# <<< Homebrew Intel x86_64 guards <<<
 {%@@ endif @@%}

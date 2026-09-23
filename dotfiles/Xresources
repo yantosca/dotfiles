@@ -40,6 +40,7 @@ XTerm.*.termType:          xterm
 XTerm.*.textUnderIcon:     true
 XTerm.*.titleBar:          true
 XTerm.*.utf8:              true
+XTerm.*.selectToClipboard: true
 
 {%@@ if profile == "bender" @@%}
 ! Use Source Code Pro Medium 11 pt
@@ -68,8 +69,8 @@ XTerm.*.faceSize:          12
     Ctrl Shift <Key> N: scroll-back(1, halfpage) \n\
     Ctrl Shift <Key> T: scroll-forw(1, halfpage) \n\
     Ctrl Shift <Key> C: copy-selection(CLIPBOARD) \n\
-    Ctrl Shift <Key> V: insert-selection(CLIPBOARD) \n\
+    Ctrl Shift <Key> V: insert-selection(CLIPBOARD, PRIMARY, CUT_BUFFER0) \n\
     Ctrl Shift <Key> H: set-altscreen(toggle) \n\
     Ctrl <KeyPress> Insert: copy-selection(CLIPBOARD) \n\
-    Shift <KeyPress> Insert: insert-selection(CLIPBOARD)
+    Shift <KeyPress> Insert: insert-selection(CLIPBOARD, PRIMARY, CUT_BUFFER0)
 !EOC

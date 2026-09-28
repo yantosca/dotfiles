@@ -98,6 +98,13 @@ unset key_1
 unset key_2
 unset key_3
 
+#=============================================================================
+# Claude code access token (date: 9/23/26)
+#=============================================================================
+if [[ -r "$HOME/.claude_code_token" ]]; then
+  export CLAUDE_CODE_OAUTH_TOKEN=`cat "$HOME/.claude_code_token"`
+fi
+
 {%@@ if profile =="bender" @@%}
 # added by Miniconda3 4.5.12 installer
 # >>> conda init >>>
